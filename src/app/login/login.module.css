@@ -1,0 +1,164 @@
+.main{
+    display: flex;
+    align-items: center;
+    height: 100vh;
+}
+.container{
+    background-color: aqua;
+    width: 50%;
+    height: 100vh;
+    border-radius: 15px;
+}
+.loginContainer{
+    background-color: #FFFFFF;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    width: 50%;
+}
+.loginSwap{
+    background-color: #F5F5F5;
+    width: 60%;
+    height: 60px;
+    border-radius: 12px;
+    display: flex;
+    padding: 4px;
+    gap: 4px;
+}
+.active{
+    background-color: #D9D9D9;
+    display: flex;
+    width: 50%;
+    border-radius: 8px;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(68, 196, 255, 0.2);
+}
+.TextActive{
+    color: #44C4FF;
+    font-weight: 600;
+    font-size: 16px;
+    margin: 0;
+}
+.inactive{
+    display: flex;
+    width: 50%;
+    border-radius: 8px;
+    justify-content: center;
+    align-items: center;
+    background-color: transparent;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.inactive h2 {
+    color: #666;
+    font-weight: 500;
+    font-size: 16px;
+    margin: 0;
+}
+
+.inactive:hover {
+    background-color: rgba(68, 196, 255, 0.1);
+}
+.inputContainer{
+    display: flex;
+    flex-direction: column;
+    width: 60%;
+    margin-top: 20px;
+    gap: 20px;
+}
+.inputWrapper{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.inputLabel {
+    font-size: 14px;
+    font-weight: 500;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.inputWithIcon {
+    position: relative;
+    display: flex;
+    align-items: center;
+    background-color: #F5F5F5;
+    border-radius: 8px;
+    padding: 12px 16px;
+    border: 1px solid #E0E0E0;
+}
+
+.selectWithIcon {
+    position: relative;
+    display: flex;
+    align-items: center;
+    background-color: #F5F5F5;
+    border-radius: 8px;
+    padding: 12px 16px;
+    border: 1px solid #E0E0E0;
+}
+
+.inputIcon {
+    color: #666;
+    margin-right: 12px;
+    font-size: 16px;
+}
+
+.input {
+    background: transparent;
+    border: none;
+    outline: none;
+    flex: 1;
+    font-size: 14px;
+    color: #333;
+}
+
+.input::placeholder {
+    color: #999;
+    font-size: 14px;
+}
+
+.select {
+    background: transparent;
+    border: none;
+    outline: none;
+    flex: 1;
+    font-size: 14px;
+    color: #333;
+    cursor: pointer;
+}
+
+.eyeIcon {
+    color: #666;
+    cursor: pointer;
+    font-size: 16px;
+    margin-left: 8px;
+}
+
+.eyeIcon:hover {
+    color: #44C4FF;
+}
+
+.buttonContainer{
+    padding: 12px 16px;
+    margin-top: 40px;
+    width: 25%;
+}
+.button{
+    background-color: #44C4FF;
+    color: white;
+    border: none;
+    padding: 12px 16px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    width: 100%;
+}
