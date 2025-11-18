@@ -1,5 +1,5 @@
 .footer {
-    background: #1e293b;
+    background: linear-gradient(135deg, #2CA5A6 0%, #248a8b 100%);
     color: white;
     text-align: center;
     padding: 2rem;
@@ -8,5 +8,5 @@
 
 .footer p {
     margin: 0;
-    color: #94a3b8;
+    color: #e0f2f2;
 }
