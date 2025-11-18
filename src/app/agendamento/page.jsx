@@ -2,6 +2,7 @@ import Link from "next/link";
 import styles from "./Agendamento.module.css"
 import Image from "next/image";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import Footer from "@/components/Footer";
 
 export default function Agendamento() {
     const days = [
@@ -105,6 +106,7 @@ export default function Agendamento() {
                 </div>
 
             </main>
+            <Footer />
         </div>
     );  
 }
