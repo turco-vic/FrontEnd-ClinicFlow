@@ -5,64 +5,6 @@
     background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
 }
 
-.header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1.5rem 5%;
-    background: white;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-}
-
-.logo h1 {
-    color: #2563eb;
-    font-size: 2rem;
-    margin: 0;
-    font-weight: 700;
-}
-
-.tagline {
-    color: #64748b;
-    font-size: 0.85rem;
-    display: block;
-    margin-top: 0.25rem;
-}
-
-.nav {
-    display: flex;
-    gap: 1rem;
-    align-items: center;
-}
-
-.navLink {
-    color: #475569;
-    text-decoration: none;
-    padding: 0.5rem 1rem;
-    border-radius: 6px;
-    transition: all 0.3s;
-}
-
-.navLink:hover {
-    background: #f1f5f9;
-    color: #2563eb;
-}
-
-.navButton {
-    background: #2563eb;
-    color: white;
-    text-decoration: none;
-    padding: 0.6rem 1.5rem;
-    border-radius: 8px;
-    font-weight: 500;
-    transition: all 0.3s;
-}
-
-.navButton:hover {
-    background: #1d4ed8;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
-}
-
 .main {
     flex: 1;
     padding: 4rem 5%;
@@ -99,7 +41,7 @@
 }
 
 .primaryButton {
-    background: #2563eb;
+    background: #2CA5A6;
     color: white;
     text-decoration: none;
     padding: 1rem 2.5rem;
@@ -107,31 +49,31 @@
     font-size: 1.1rem;
     font-weight: 600;
     transition: all 0.3s;
-    box-shadow: 0 4px 14px rgba(37, 99, 235, 0.3);
+    box-shadow: 0 4px 14px rgba(44, 165, 166, 0.3);
 }
 
 .primaryButton:hover {
-    background: #1d4ed8;
+    background: #248a8b;
     transform: translateY(-3px);
-    box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4);
+    box-shadow: 0 6px 20px rgba(44, 165, 166, 0.4);
 }
 
 .secondaryButton {
     background: white;
-    color: #2563eb;
+    color: #2CA5A6;
     text-decoration: none;
     padding: 1rem 2.5rem;
     border-radius: 12px;
     font-size: 1.1rem;
     font-weight: 600;
     transition: all 0.3s;
-    border: 2px solid #2563eb;
+    border: 2px solid #2CA5A6;
 }
 
 .secondaryButton:hover {
-    background: #eff6ff;
+    background: #e6f7f7;
     transform: translateY(-3px);
-    box-shadow: 0 6px 20px rgba(37, 99, 235, 0.2);
+    box-shadow: 0 6px 20px rgba(44, 165, 166, 0.2);
 }
 
 .features {
@@ -160,7 +102,7 @@
 .icon {
     font-size: 3rem;
     margin-bottom: 1rem;
-    color: #2563eb;
+    color: #2CA5A6;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -178,26 +120,7 @@
     line-height: 1.6;
 }
 
-.footer {
-    background: #1e293b;
-    color: white;
-    text-align: center;
-    padding: 2rem;
-    margin-top: auto;
-}
-
-.footer p {
-    margin: 0;
-    color: #94a3b8;
-}
-
 @media (max-width: 768px) {
-    .header {
-        flex-direction: column;
-        gap: 1rem;
-        text-align: center;
-    }
-
     .hero h2 {
         font-size: 2rem;
     }
