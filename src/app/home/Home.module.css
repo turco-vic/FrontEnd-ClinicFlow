@@ -15,7 +15,7 @@
 }
 
 .logo h1 {
-    color: #2563eb;
+    color: #2CA5A6;
     font-size: 2rem;
     margin: 0;
     font-weight: 700;
@@ -44,11 +44,11 @@
 
 .navLink:hover {
     background: #f1f5f9;
-    color: #2563eb;
+    color: #2CA5A6;
 }
 
 .navButton {
-    background: #2563eb;
+    background: #2CA5A6;
     color: white;
     text-decoration: none;
     padding: 0.6rem 1.5rem;
@@ -58,9 +58,9 @@
 }
 
 .navButton:hover {
-    background: #1d4ed8;
+    background: #248a8b;
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+    box-shadow: 0 4px 12px rgba(44, 165, 166, 0.3);
 }
 
 .main {
@@ -99,7 +99,7 @@
 }
 
 .primaryButton {
-    background: #2563eb;
+    background: #2CA5A6;
     color: white;
     text-decoration: none;
     padding: 1rem 2.5rem;
@@ -107,31 +107,31 @@
     font-size: 1.1rem;
     font-weight: 600;
     transition: all 0.3s;
-    box-shadow: 0 4px 14px rgba(37, 99, 235, 0.3);
+    box-shadow: 0 4px 14px rgba(44, 165, 166, 0.3);
 }
 
 .primaryButton:hover {
-    background: #1d4ed8;
+    background: #248a8b;
     transform: translateY(-3px);
-    box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4);
+    box-shadow: 0 6px 20px rgba(44, 165, 166, 0.4);
 }
 
 .secondaryButton {
     background: white;
-    color: #2563eb;
+    color: #2CA5A6;
     text-decoration: none;
     padding: 1rem 2.5rem;
     border-radius: 12px;
     font-size: 1.1rem;
     font-weight: 600;
     transition: all 0.3s;
-    border: 2px solid #2563eb;
+    border: 2px solid #2CA5A6;
 }
 
 .secondaryButton:hover {
-    background: #eff6ff;
+    background: #e6f7f7;
     transform: translateY(-3px);
-    box-shadow: 0 6px 20px rgba(37, 99, 235, 0.2);
+    box-shadow: 0 6px 20px rgba(44, 165, 166, 0.2);
 }
 
 .features {
@@ -160,7 +160,7 @@
 .icon {
     font-size: 3rem;
     margin-bottom: 1rem;
-    color: #2563eb;
+    color: #2CA5A6;
     display: flex;
     justify-content: center;
     align-items: center;
