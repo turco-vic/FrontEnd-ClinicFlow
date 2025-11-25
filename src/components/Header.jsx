@@ -1,4 +1,7 @@
+'use client';
+
 import Link from 'next/link';
+import { SignedIn, SignedOut, UserButton } from '@clerk/nextjs';
 import styles from '../styles/Header.module.css';
 
 export default function Header() {
@@ -12,7 +15,16 @@ export default function Header() {
                 <Link href="/home" className={styles.navLink}>Home</Link>
                 <Link href="/sobre" className={styles.navLink}>Sobre</Link>
                 <Link href="/consultas" className={styles.navLink}>Consultas</Link>
-                <Link href="/login" className={styles.navLink}>Entrar</Link>
+                
+                <SignedOut>
+                    <Link href="/login" className={styles.navLink}>Entrar</Link>
+                </SignedOut>
+                
+                <SignedIn>
+                    <div className={styles.userButton}>
+                        <UserButton afterSignOutUrl="/login" />
+                    </div>
+                </SignedIn>
             </nav>
         </div>
     );
