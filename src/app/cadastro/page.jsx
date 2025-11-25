@@ -1,11 +1,11 @@
-import { SignIn } from '@clerk/nextjs';
-import styles from './login.module.css';
+import { SignUp } from '@clerk/nextjs';
+import styles from './cadastro.module.css';
 
-export default function Login() {
+export default function Cadastro() {
     return (
         <div className={styles.main}>
             <div className={styles.clerkContainer}>
-                <SignIn 
+                <SignUp 
                     routing="hash"
                     appearance={{
                         elements: {

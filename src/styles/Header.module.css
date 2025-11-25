@@ -40,6 +40,11 @@
     color: #2CA5A6;
 }
 
+.userButton {
+    display: flex;
+    align-items: center;
+}
+
 @media (max-width: 768px) {
     .header {
         flex-direction: column;
