@@ -8,8 +8,9 @@ import axios from "axios";
 import { Calendar, TimePicker } from "antd";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Header from "@/components/Header";
 
-const API_BASE_URL = "http://localhost:3001";
+const API_BASE_URL = "http://localhost:3000";
 
 export default function Agendamento() {
     const [doctor, setDoctor] = useState(null);
@@ -70,16 +71,7 @@ export default function Agendamento() {
 
     return (
         <div className={styles.container}>
-            <header className={styles.header}>
-                <div className={styles.logo}>
-                    <Image 
-                        src="/image/image.png"
-                        alt="Logo ClinicFlow"
-                        width={70}
-                        height={70}
-                    />
-                </div>
-            </header>
+            <Header />
 
             <main className={styles.main}>
                 <div className={styles.leftColumn}>
