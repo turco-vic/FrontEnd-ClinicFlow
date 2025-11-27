@@ -14,6 +14,7 @@ export default function Header() {
                 <Link href="/home" className={styles.navLink}>Home</Link>
                 <Link href="/sobre" className={styles.navLink}>Sobre</Link>
                 <Link href="/consultas" className={styles.navLink}>Consultas</Link>
+                <Link href="/contato" className={styles.navLink}>Contato</Link>
                 <Link href="/login" className={styles.navLink}>Entrar</Link>
             </nav>
         </div>
