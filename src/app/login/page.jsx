@@ -15,7 +15,12 @@ export default function Login() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        router.push('/home');
+        
+        if (email === 'teste@gmail.com' && senha === '1234') {
+            router.push('/home');
+        } else {
+            alert('Email ou senha incorretos!\nUse: teste@gmail.com / 1234');
+        }
     };
 
     return (
