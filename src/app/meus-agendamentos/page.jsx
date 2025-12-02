@@ -88,13 +88,12 @@ export default function MeusAgendamentos() {
             .finally(() => setLoading(false));
     }, []);
 
-    // Função de filtro melhorada
+   
     const filteredSchedules = schedules.filter((schedule) => {
         if (!search.trim()) return true;
 
         const searchTerm = search.toLowerCase().trim();
         
-        // Buscar em múltiplos campos
         const doctorName = (schedule.doctor_name || "").toLowerCase();
         const specialtyName = (schedule.specialty_name || "").toLowerCase();
         const crm = (schedule.doctor_crm || "").toLowerCase();
@@ -157,7 +156,7 @@ export default function MeusAgendamentos() {
                     )}
 
                     {!loading && !error && filteredSchedules.length === 0 && search.trim() && (
-                        <p>Nenhum agendamento encontrado para "{search}".</p>
+                        <p>{`Nenhum agendamento encontrado para "${search}".`}</p>
                     )}
 
                     {!loading && !error && filteredSchedules.length === 0 && !search.trim() && (
