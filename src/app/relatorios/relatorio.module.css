@@ -1,0 +1,347 @@
+.container {
+    min-height: calc(100vh - 140px);
+    background: linear-gradient(135deg, #f5f7fa 0%, #e8f4f8 100%);
+    padding: 40px 20px;
+}
+
+.content {
+    max-width: 1200px;
+    margin: 0 auto;
+    background: white;
+    border-radius: 16px;
+    padding: 40px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 2px solid #f0f0f0;
+}
+
+.title {
+    font-size: 32px;
+    font-weight: 700;
+    color: #1a2332;
+    margin: 0 0 8px 0;
+}
+
+.subtitle {
+    font-size: 16px;
+    color: #7a8699;
+    margin: 0;
+}
+
+.medicoInfo {
+    text-align: right;
+}
+
+.medicoNome {
+    font-size: 18px;
+    font-weight: 600;
+    color: #2c3e50;
+    margin: 0 0 4px 0;
+}
+
+.medicoRole {
+    font-size: 14px;
+    color: #44C4FF;
+    margin: 0;
+    font-weight: 500;
+}
+
+.filterSection {
+    background: #f8fafc;
+    border-radius: 12px;
+    padding: 30px;
+    margin-bottom: 30px;
+}
+
+.sectionTitle {
+    font-size: 20px;
+    font-weight: 600;
+    color: #1a2332;
+    margin: 0 0 20px 0;
+}
+
+.filterGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.filterItem {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.label {
+    font-size: 14px;
+    font-weight: 500;
+    color: #2c3e50;
+}
+
+.select,
+.dateInput {
+    padding: 12px 16px;
+    border: 2px solid #E5E7EB;
+    border-radius: 8px;
+    font-size: 15px;
+    color: #2c3e50;
+    background: white;
+    transition: all 0.3s ease;
+}
+
+.select:focus,
+.dateInput:focus {
+    outline: none;
+    border-color: #44C4FF;
+}
+
+.generateButton {
+    background-color: #44C4FF;
+    color: white;
+    border: none;
+    padding: 14px 32px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    width: 100%;
+    max-width: 250px;
+}
+
+.generateButton:hover:not(:disabled) {
+    background-color: #3ba5db;
+}
+
+.generateButton:disabled {
+    background-color: #a0aec0;
+    cursor: not-allowed;
+}
+
+.loading {
+    text-align: center;
+    padding: 60px 20px;
+}
+
+.spinner {
+    width: 50px;
+    height: 50px;
+    border: 4px solid #f0f0f0;
+    border-top: 4px solid #44C4FF;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 0 auto 20px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.loading p {
+    color: #7a8699;
+    font-size: 16px;
+}
+
+.reportSection {
+    background: #f8fafc;
+    border-radius: 12px;
+    padding: 30px;
+}
+
+.reportHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.exportButtons {
+    display: flex;
+    gap: 10px;
+}
+
+.exportButton {
+    background-color: white;
+    color: #2c3e50;
+    border: 2px solid #E5E7EB;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.exportButton:hover {
+    border-color: #44C4FF;
+    color: #44C4FF;
+}
+
+.reportInfo {
+    background: white;
+    border-radius: 8px;
+    padding: 15px 20px;
+    margin-bottom: 30px;
+}
+
+.reportInfo p {
+    margin: 8px 0;
+    font-size: 14px;
+    color: #2c3e50;
+}
+
+.statsGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.statCard {
+    background: white;
+    border-radius: 12px;
+    padding: 24px;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s;
+}
+
+.statCard:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.statNumber {
+    font-size: 36px;
+    font-weight: 700;
+    color: #44C4FF;
+    margin-bottom: 8px;
+}
+
+.statLabel {
+    font-size: 14px;
+    color: #7a8699;
+    font-weight: 500;
+}
+
+.diagnosticSection {
+    background: white;
+    border-radius: 12px;
+    padding: 24px;
+}
+
+.subsectionTitle {
+    font-size: 18px;
+    font-weight: 600;
+    color: #1a2332;
+    margin: 0 0 20px 0;
+}
+
+.diagnosticList {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.diagnosticItem {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 12px 16px;
+    background: #f8fafc;
+    border-radius: 8px;
+    transition: background-color 0.2s;
+}
+
+.diagnosticItem:hover {
+    background-color: #e8f4f8;
+}
+
+.diagnosticRank {
+    font-size: 18px;
+    font-weight: 700;
+    color: #44C4FF;
+    min-width: 30px;
+}
+
+.diagnosticName {
+    flex: 1;
+    font-size: 15px;
+    color: #2c3e50;
+    font-weight: 500;
+}
+
+.diagnosticCount {
+    font-size: 14px;
+    color: #7a8699;
+    font-weight: 500;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .container {
+        padding: 20px 10px;
+    }
+
+    .content {
+        padding: 20px;
+    }
+
+    .header {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .medicoInfo {
+        text-align: left;
+    }
+
+    .title {
+        font-size: 24px;
+    }
+
+    .subtitle {
+        font-size: 14px;
+    }
+
+    .filterSection {
+        padding: 20px;
+    }
+
+    .filterGrid {
+        grid-template-columns: 1fr;
+    }
+
+    .reportHeader {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .exportButtons {
+        width: 100%;
+        flex-direction: column;
+    }
+
+    .exportButton {
+        width: 100%;
+    }
+
+    .statsGrid {
+        grid-template-columns: 1fr;
+    }
+
+    .statNumber {
+        font-size: 28px;
+    }
+}

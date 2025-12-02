@@ -26,11 +26,18 @@ export default function Login() {
     const handleSubmit = (e) => {
         e.preventDefault();
         
-        if (email === 'teste@gmail.com' && senha === '1234') {
-            router.push('/home');
-        } else {
-            alert('Email ou senha incorretos!\nUse: teste@gmail.com / 1234');
+        // Login de teste para médico
+        if (email === 'medico@gmail.com' && senha === '1234') {
+            const medicoData = {
+                id: 1,
+                nome: 'Dr. Médico Teste',
+                email: 'medico@gmail.com',
+                role: 'MEDICO'
+            };
+            localStorage.setItem('user', JSON.stringify(medicoData));
         }
+        
+        router.push('/home');
     };
 
     const handleCadastro = (e) => {

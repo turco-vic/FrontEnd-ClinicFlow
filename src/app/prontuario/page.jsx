@@ -44,25 +44,6 @@ export default function Prontuario() {
         { label: "Freq. Cardíaca", valor: freqCardiaca, setValue: setFreqCardiaca, unidade: "BPM" }
     ];
 
-    useEffect(() => {
-        let intervalo = null;
-        if (ativo) {
-            intervalo = setInterval(() => {
-                setSegundos(segundos => segundos + 1);
-            }, 1000);
-        } else if (!ativo && segundos !== 0) {
-            clearInterval(intervalo);
-        }
-        return () => clearInterval(intervalo);
-    }, [ativo, segundos]);
-
-    const formatarTempo = () => {
-        const horas = Math.floor(segundos / 3600);
-        const minutos = Math.floor((segundos % 3600) / 60);
-        const segs = segundos % 60;
-        return `${horas.toString().padStart(2, '0')}:${minutos.toString().padStart(2, '0')}:${segs.toString().padStart(2, '0')}`;
-    };
-
     return (
         <div className={styles.container}>
             <Header />
@@ -84,16 +65,24 @@ export default function Prontuario() {
                         </div>
 
                         <nav className={styles.nav}>
-                            <button className={styles.navItem}>
+                            <button 
+                                className={styles.navItem}
+                                onClick={() => window.location.href = '/agendamento'}
+                            >
                                 <span>Agenda</span>
                             </button>
-                            <button className={styles.navItem}>
+                            <button 
+                                className={styles.navItem}
+                                onClick={() => window.location.href = '/pacientes'}
+                            >
                                 <span>Pacientes</span>
                             </button>
                             <button className={styles.navItem}>
                                 <span>Estatísticas</span>
                             </button>
-                            <button className={styles.navItem}>
+                            <button className={styles.navItem}
+                            onClick={() => window.location.href = '/relatorios'}
+                            >
                                 <span>Relatórios</span>
                             </button>
                             <button className={styles.navItem}>
