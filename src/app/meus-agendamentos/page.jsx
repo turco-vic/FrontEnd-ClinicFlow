@@ -88,11 +88,26 @@ export default function MeusAgendamentos() {
             .finally(() => setLoading(false));
     }, []);
 
+    // Função de filtro melhorada
     const filteredSchedules = schedules.filter((schedule) => {
         if (!search.trim()) return true;
 
-        const text = `${schedule.doctor_name || ""} ${schedule.specialty_name || ""}`.toLowerCase();
-        return text.includes(search.toLowerCase());
+        const searchTerm = search.toLowerCase().trim();
+        
+        // Buscar em múltiplos campos
+        const doctorName = (schedule.doctor_name || "").toLowerCase();
+        const specialtyName = (schedule.specialty_name || "").toLowerCase();
+        const crm = (schedule.doctor_crm || "").toLowerCase();
+        const date = schedule.consult_date 
+            ? new Date(schedule.consult_date).toLocaleDateString("pt-BR")
+            : "";
+
+        return (
+            doctorName.includes(searchTerm) ||
+            specialtyName.includes(searchTerm) ||
+            crm.includes(searchTerm) ||
+            date.includes(searchTerm)
+        );
     });
 
     return (
@@ -119,7 +134,7 @@ export default function MeusAgendamentos() {
                     
                     <Input 
                         size="large" 
-                        placeholder="Buscar por médico ou especialidade..." 
+                        placeholder="Buscar por médico, especialidade, CRM ou data..." 
                         prefix={
                             <FaSearch
                                 size={18}
@@ -130,6 +145,7 @@ export default function MeusAgendamentos() {
                         className={styles.searchInput}
                         value={search}
                         onChange={(e) => setSearch(e.target.value)}
+                        allowClear
                     />
                 </div>
 
@@ -140,70 +156,83 @@ export default function MeusAgendamentos() {
                         <p style={{ color: "red" }}>{error}</p>
                     )}
 
-                    {!loading && !error && filteredSchedules.length === 0 && (
+                    {!loading && !error && filteredSchedules.length === 0 && search.trim() && (
+                        <p>Nenhum agendamento encontrado para "{search}".</p>
+                    )}
+
+                    {!loading && !error && filteredSchedules.length === 0 && !search.trim() && (
                         <p>Você ainda não possui agendamentos.</p>
                     )}
 
                     {!loading && !error && filteredSchedules.length > 0 && (
-                        <div className={styles.list}>
-                            {filteredSchedules.map((schedule) => {
-                                const dateBR = schedule.consult_date
-                                    ? new Date(schedule.consult_date).toLocaleDateString("pt-BR")
-                                    : "--/--/----";
-                                const hour = schedule.consult_hour
-                                    ? schedule.consult_hour.slice(0, 5) + "h"
-                                    : "--:--h";
+                        <>
+                            {search.trim() && (
+                                <p style={{ marginBottom: '1rem', color: '#666' }}>
+                                    {filteredSchedules.length} agendamento(s) encontrado(s)
+                                </p>
+                            )}
+                            <div className={styles.list}>
+                                {filteredSchedules.map((schedule) => {
+                                    const dateBR = schedule.consult_date
+                                        ? new Date(schedule.consult_date).toLocaleDateString("pt-BR")
+                                        : "--/--/----";
+                                    const hour = schedule.consult_hour
+                                        ? schedule.consult_hour.slice(0, 5) + "h"
+                                        : "--:--h";
 
-                                return (
-                                    <div
-                                        key={schedule.id}
-                                        className={styles.scheduleItem}
-                                    >
-                        
-                                        <div className={styles.scheduleHeader}>
-                                            <span className={styles.tagEspecialidade}>
-                                                ❤️ {schedule.specialty_name}
-                                            </span>
+                                    return (
+                                        <div
+                                            key={schedule.id}
+                                            className={styles.scheduleItem}
+                                        >
+                                           
+                                            <div className={styles.scheduleHeader}>
+                                                <span className={styles.tagEspecialidade}>
+                                                    ❤️ {schedule.specialty_name}
+                                                </span>
 
-                                            <span className={styles.tagStatus}>
-                                                Agendada
-                                            </span>
-                                        </div>
-
-                                        <div className={styles.scheduleDoctor}>
-                                            <h3 className={styles.doctorName}>{schedule.doctor_name}</h3>
-                                            <p className={styles.doctorCrm}>{schedule.doctor_crm}</p>
-                                        </div>
-
-                                        <div className={styles.scheduleDetails}>
-                                            <div className={styles.detailBlock}>
-                                                <div className={styles.detailIcon}>
-                                                    📅
-                                                </div>
-                                                <span className={styles.detailLabel}>Data</span>
-                                                <span className={styles.detailValue}>{dateBR}</span>
+                                                <span className={styles.tagStatus}>
+                                                    Agendada
+                                                </span>
                                             </div>
 
-                                            <div className={styles.detailBlock}>
-                                                <div className={styles.detailIcon}>
-                                                    🕐
-                                                </div>
-                                                <span className={styles.detailLabel}>Horário</span>
-                                                <span className={styles.detailValue}>{hour}</span>
+                                          
+                                            <div className={styles.scheduleDoctor}>
+                                                <h3 className={styles.doctorName}>{schedule.doctor_name}</h3>
+                                                <p className={styles.doctorCrm}>{schedule.doctor_crm}</p>
                                             </div>
 
-                                            <div className={styles.detailBlock}>
-                                                <div className={styles.detailIcon}>
-                                                    📍
+                                            
+                                            <div className={styles.scheduleDetails}>
+                                                <div className={styles.detailBlock}>
+                                                    <div className={styles.detailIcon}>
+                                                        📅
+                                                    </div>
+                                                    <span className={styles.detailLabel}>Data</span>
+                                                    <span className={styles.detailValue}>{dateBR}</span>
                                                 </div>
-                                                <span className={styles.detailLabel}>Local</span>
-                                                <span className={styles.detailValue}>ClinicFlow</span>
+
+                                                <div className={styles.detailBlock}>
+                                                    <div className={styles.detailIcon}>
+                                                        🕐
+                                                    </div>
+                                                    <span className={styles.detailLabel}>Horário</span>
+                                                    <span className={styles.detailValue}>{hour}</span>
+                                                </div>
+
+                                                <div className={styles.detailBlock}>
+                                                    <div className={styles.detailIcon}>
+                                                        📍
+                                                    </div>
+                                                    <span className={styles.detailLabel}>Local</span>
+                                                    <span className={styles.detailValue}>ClinicFlow</span>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                );
-                            })}
-                        </div>
+                                    );
+                                })}
+                            </div>
+                        </>
                     )}
                 </div>
             </main>
