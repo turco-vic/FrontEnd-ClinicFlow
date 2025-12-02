@@ -23,21 +23,61 @@ export default function Login() {
     
     const router = useRouter();
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         
-        // Login de teste para médico
-        if (email === 'medico@gmail.com' && senha === '1234') {
-            const medicoData = {
-                id: 1,
-                nome: 'Dr. Médico Teste',
-                email: 'medico@gmail.com',
-                role: 'MEDICO'
-            };
-            localStorage.setItem('user', JSON.stringify(medicoData));
+        try {
+            // Determinar o endpoint baseado no tipo de usuário
+            const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+            let endpoint = '';
+            let role = '';
+            
+            if (tipoUsuario === 'Médico') {
+                endpoint = `${apiUrl}/medicos`;
+                role = 'MEDICO';
+            } else if (tipoUsuario === 'Paciente') {
+                endpoint = `${apiUrl}/pacientes`;
+                role = 'PACIENTE';
+            } else {
+                alert('Tipo de usuário não suportado');
+                return;
+            }
+
+            // Buscar todos os usuários do tipo selecionado
+            const response = await fetch(endpoint, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            });
+
+            if (response.ok) {
+                const usuarios = await response.json();
+                
+                // Procurar o usuário com email e senha correspondentes
+                const usuarioEncontrado = usuarios.find(
+                    user => user.email === email && user.senha === senha
+                );
+
+                if (usuarioEncontrado) {
+                    const userDataWithType = {
+                        ...usuarioEncontrado,
+                        role: role,
+                        tipoUsuario: tipoUsuario
+                    };
+                    
+                    localStorage.setItem('user', JSON.stringify(userDataWithType));
+                    router.push('/home');
+                } else {
+                    alert('Email ou senha incorretos');
+                }
+            } else {
+                alert('Erro ao buscar usuários');
+            }
+        } catch (error) {
+            console.error('Erro ao conectar com o servidor:', error);
+            alert('Erro ao conectar com o servidor. Verifique se o backend está rodando.');
         }
-        
-        router.push('/home');
     };
 
     const handleCadastro = (e) => {
