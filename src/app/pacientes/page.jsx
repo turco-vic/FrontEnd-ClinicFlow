@@ -158,40 +158,51 @@ export default function Pacientes() {
                             </p>
                         </div>
                     ) : (
-                        <div className={styles.tableContainer}>
-                            <table className={styles.table}>
-                                <thead>
-                                    <tr>
-                                        <th>ID</th>
-                                        <th>Nome</th>
-                                        <th>Email</th>
-                                        <th>CPF</th>
-                                        <th>Telefone</th>
-                                        <th>Data Nascimento</th>
-                                        <th>Ações</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {pacientesFiltrados.map((paciente) => (
-                                        <tr key={paciente.id}>
-                                            <td>#{paciente.id}</td>
-                                            <td className={styles.patientName}>{paciente.nome}</td>
-                                            <td>{paciente.email}</td>
-                                            <td>{formatarCPF(paciente.cpf)}</td>
-                                            <td>{formatarTelefone(paciente.number_phone)}</td>
-                                            <td>{formatarData(paciente.birth_date)}</td>
-                                            <td>
-                                                <button 
-                                                    className={styles.viewButton}
-                                                    onClick={() => router.push(`/prontuario?pacienteId=${paciente.id}`)}
-                                                >
-                                                    Ver Prontuário
-                                                </button>
-                                            </td>
-                                        </tr>
-                                    ))}
-                                </tbody>
-                            </table>
+                        <div className={styles.cardsContainer}>
+                            {pacientesFiltrados.map((paciente) => (
+                                <div key={paciente.id} className={styles.card}>
+                                    <div className={styles.cardHeader}>
+                                        <div className={styles.cardAvatar}>
+                                            {paciente.nome.charAt(0).toUpperCase()}
+                                        </div>
+                                        <div className={styles.cardTitle}>
+                                            <h3>{paciente.nome}</h3>
+                                            <span className={styles.cardId}>#{paciente.id}</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div className={styles.cardBody}>
+                                        <div className={styles.cardInfo}>
+                                            <span className={styles.infoLabel}>Email</span>
+                                            <span className={styles.infoValue}>{paciente.email}</span>
+                                        </div>
+                                        
+                                        <div className={styles.cardInfo}>
+                                            <span className={styles.infoLabel}>CPF</span>
+                                            <span className={styles.infoValue}>{formatarCPF(paciente.cpf)}</span>
+                                        </div>
+                                        
+                                        <div className={styles.cardInfo}>
+                                            <span className={styles.infoLabel}>Telefone</span>
+                                            <span className={styles.infoValue}>{formatarTelefone(paciente.number_phone)}</span>
+                                        </div>
+                                        
+                                        <div className={styles.cardInfo}>
+                                            <span className={styles.infoLabel}>Nascimento</span>
+                                            <span className={styles.infoValue}>{formatarData(paciente.birth_date)}</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div className={styles.cardFooter}>
+                                        <button 
+                                            className={styles.viewButton}
+                                            onClick={() => router.push(`/prontuario?pacienteId=${paciente.id}`)}
+                                        >
+                                            Ver Prontuário
+                                        </button>
+                                    </div>
+                                </div>
+                            ))}
                         </div>
                     )}
                 </div>
