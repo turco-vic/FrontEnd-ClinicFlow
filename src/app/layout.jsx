@@ -11,7 +11,7 @@ export const metadata = {
     title: "ClinicFlow",
     description: "",
     icons: {
-        icon: "/icons/favicon.ico",
+        icon: "/images/logo.png",
     },
 };
 
