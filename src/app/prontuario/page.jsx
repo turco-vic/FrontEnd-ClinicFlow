@@ -77,7 +77,9 @@ export default function Prontuario() {
                             >
                                 <span>Pacientes</span>
                             </button>
-                            <button className={styles.navItem}>
+                            <button className={styles.navItem}
+                            onClick={() => window.location.href = '/estatisticas'}
+                            >
                                 <span>Estatísticas</span>
                             </button>
                             <button className={styles.navItem}
