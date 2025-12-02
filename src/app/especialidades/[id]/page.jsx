@@ -69,10 +69,11 @@ export default function EspecialidadePage() {
                                 <div style={{ border: '1px solid #ccc', padding: '10px', borderRadius: '5px', fontSize: '8px', textAlign: 'center' }}>
                                     <h1>{doc.name}</h1>                                        
                                     <Image
-                                    src={`/${doc.doctor_photo}` || '/doctor.jpg'}
-                                    alt={doc.name || 'Foto do médico'}
-                                    width={100}
-                                    height={100}/>
+                                        src={doc.doctor_photo ? `${doc.doctor_photo}` : '/default-doctor.png'}
+                                        alt={doc.name || 'Foto do médico'}
+                                        width={100}
+                                        height={100}
+                                    />
                                 </div>
                                 
                             </Link>
