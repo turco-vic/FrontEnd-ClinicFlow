@@ -15,6 +15,7 @@ export default function Header() {
                 <Link href="/especialidades" className={styles.navLink}>Especialidades</Link>
                 <Link href="/agendamento" className={styles.navLink}>Agendamento</Link>
                 <Link href="/meus-agendamentos" className={styles.navLink}>Minhas consultas</Link>
+                <Link href="/prontuario" className={styles.navLink}>Prontuário</Link>
                 <Link href="/contato" className={styles.navLink}>Contato</Link>
             </nav>
         </div>

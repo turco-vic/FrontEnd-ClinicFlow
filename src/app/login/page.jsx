@@ -22,6 +22,7 @@ export default function Login() {
     
     const router = useRouter();
 
+
     // Hook de credenciais em formato de array conforme solicitado
     const [credentials, setCredentials] = useState([]);
     // Controle de tela: Login ou Cadastro
@@ -66,6 +67,7 @@ export default function Login() {
         } catch (err) {
             console.error('Erro no login:', err);
             alert(err?.response?.data?.message || 'Erro ao efetuar login');
+
         }
     };
 

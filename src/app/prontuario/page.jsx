@@ -1,14 +1,17 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import styles from './Prontuario.module.css';
 
 export default function Prontuario() {
+    const router = useRouter();
     const [activeTab, setActiveTab] = useState('atendimento');
     const [agendaAtiva, setAgendaAtiva] = useState(true);
+    const [acessoNegado, setAcessoNegado] = useState(false);
     
     const [segundos, setSegundos] = useState(0);
     const [ativo, setAtivo] = useState(true);
@@ -43,6 +46,66 @@ export default function Prontuario() {
         { label: "Freq. Respiratória", valor: freqRespiratoria, setValue: setFreqRespiratoria, unidade: "RPM" },
         { label: "Freq. Cardíaca", valor: freqCardiaca, setValue: setFreqCardiaca, unidade: "BPM" }
     ];
+
+    // Verificar acesso na montagem do componente
+    useEffect(() => {
+        const userStorage = localStorage.getItem('user');
+        
+        if (!userStorage) {
+            // Se não estiver logado, redireciona para login
+            router.push('/login');
+            return;
+        }
+
+        const userData = JSON.parse(userStorage);
+        
+        // Apenas médicos podem acessar o prontuário
+        if (userData.role !== 'MEDICO') {
+            setAcessoNegado(true);
+            setTimeout(() => {
+                router.push('/home');
+            }, 3000);
+        }
+    }, [router]);
+
+    // Se acesso negado, mostrar mensagem
+    if (acessoNegado) {
+        return (
+            <div className={styles.container}>
+                <Header />
+                <div style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    minHeight: '60vh',
+                    textAlign: 'center',
+                    padding: '20px'
+                }}>
+                    <div style={{
+                        fontSize: '48px',
+                        marginBottom: '20px'
+                    }}>🚫</div>
+                    <h1 style={{
+                        fontSize: '24px',
+                        fontWeight: 'bold',
+                        color: '#333',
+                        marginBottom: '10px'
+                    }}>Acesso Restrito</h1>
+                    <p style={{
+                        fontSize: '16px',
+                        color: '#666',
+                        marginBottom: '20px'
+                    }}>Apenas médicos podem acessar o prontuário.</p>
+                    <p style={{
+                        fontSize: '14px',
+                        color: '#999'
+                    }}>Você será redirecionado em alguns segundos...</p>
+                </div>
+                <Footer />
+            </div>
+        );
+    }
 
     return (
         <div className={styles.container}>
