@@ -1,9 +1,33 @@
-
 .home {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
-    width: 100vw;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
     background-color: #f0f2f5;
+    gap: 20px;
 }
+
+.backButton {
+    margin-bottom: 20px;
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #0070f3;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 1s;
+}
+
+.backButton:hover {
+    transform: scale(1.05);
+    background-color: #1dd1f9;
+}
+
+.card{
+    text-decoration: none;
+    color: rgb(20, 10, 10);
+}
+

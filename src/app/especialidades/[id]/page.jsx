@@ -7,11 +7,14 @@ import styles from './especialidadesm.module.css'
 import Image from "next/image"
 import { useState, useEffect } from "react"
 import axios from "axios"
+import React from "react"
+import { useRouter } from "next/navigation"
 
 // ...existing code...
 export default function EspecialidadePage() {
     const params = useParams()
     const id = params?.id
+    const router = useRouter()
 
     const [medicos, setMedicos] = useState([])
     const [loading, setLoading] = useState(false)
@@ -58,6 +61,9 @@ export default function EspecialidadePage() {
     return (
         <div className={styles.home}>
             <h2>Médicos da especialidade</h2>
+            <button onClick={() => router.back()} className={styles.backButton}>
+                Voltar
+            </button>
             {loading && <Spin />}
             {error && <p style={{ color: 'red' }}>{error}</p>}
 
@@ -66,13 +72,14 @@ export default function EspecialidadePage() {
                     medicos.map((doc) => {
                         return (
                             <Link key={doc.id} href={`/agendamento?doctorId=${doc.id}`}>
-                                <div style={{ border: '1px solid #ccc', padding: '10px', borderRadius: '5px', fontSize: '8px', textAlign: 'center' }}>
-                                    <h1>{doc.name}</h1>                                        
+                                <div className={styles.doctorcard} >
+                                    <h1 className={styles.titulo}>{doc.name}</h1>                                        
                                     <Image
-                                        src={doc.doctor_photo ? `${doc.doctor_photo}` : '/default-doctor.png'}
+                                        src={doc.doctor_photo ? `${doc.doctor_photo}` : '/images/image.png'}
                                         alt={doc.name || 'Foto do médico'}
                                         width={100}
                                         height={100}
+                                        className={styles.doctorImage}
                                     />
                                 </div>
                                 

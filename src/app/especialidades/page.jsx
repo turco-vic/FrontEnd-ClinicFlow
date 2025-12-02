@@ -6,6 +6,8 @@ import styles from './especialidades.module.css'
 import EspecialidadesCard from "@/components/EspecialidadesCard"
 import { useState, useEffect } from "react"
 import axios from "axios"
+import React from "react"
+import { useRouter } from "next/navigation"
 
 
 
@@ -16,6 +18,8 @@ export default function Especialidades() {
     useEffect(() => {
         fetchEspecialidades()
     }, [])
+
+    const router = useRouter()
 
     async function fetchEspecialidades() {
         setLoading(true)
@@ -32,13 +36,17 @@ export default function Especialidades() {
 
     return (
         <div className={styles.home}>
+            <h2>Especialidades Médicas</h2>
+            <button onClick={() => router.back()} className={styles.backButton}>
+                Voltar
+            </button>
             <div className={styles.grid}>
             {loading ? (
                 <Spin />
             ) : (
                 especialidades && especialidades.length > 0 ? (
                     especialidades.map((esp) => (
-                        <Link key={esp.id} href={`/especialidades/${esp.id}`}>
+                        <Link key={esp.id} href={`/especialidades/${esp.id}`} className={styles.card}>
                             <EspecialidadesCard key={esp.id } especialty={esp.especialty} />
                         </Link>
                     ))

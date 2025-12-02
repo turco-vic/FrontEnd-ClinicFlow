@@ -1,0 +1,60 @@
+.home {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100%;
+    width: 100vw;
+    background-color: #f0f2f5;
+}
+
+.backButton {
+    margin-bottom: 20px;
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #0070f3;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 2s;
+}
+
+.backButton:hover {
+    transform: scale(1.05);
+    background-color: #1dd1f9;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: 3fr 3fr ;;
+    gap: 20px;
+    padding: 20px;
+}
+
+.doctorcard {
+    border: 1px solid #ccc; 
+    padding: 10px; 
+    border-radius: 10px; 
+    font-size: 8px; 
+    text-align: center;
+    text-decoration: none;
+    color: cornflowerblue;
+    width: 20vw;
+    height: 40vh;
+    text-decoration: none;
+}
+
+.doctorcard:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transform: scale(1.02);
+    transition: 0.3s;
+}
+
+.doctorImage {
+    border-radius: 50%;
+    margin-top: 10px;
+    object-fit: contain;
+    background-color: black;
+}
+

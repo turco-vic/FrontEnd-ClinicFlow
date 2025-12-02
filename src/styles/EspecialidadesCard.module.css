@@ -2,8 +2,18 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 15%;
-    height: 15%;
+    width: 20vw;
+    height: 10vh;
     background-color: aqua;
+    text-align: center;
+    margin-bottom: 1rem;
     border-radius: 10px;
+}
+
+.container:hover {
+    background-color: deepskyblue;
+    cursor: pointer;
+    transform: scale(1.05);
+    transition: 0.3s;
+    color: white;
 }
