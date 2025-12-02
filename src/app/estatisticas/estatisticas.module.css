@@ -1,0 +1,336 @@
+.container {
+    min-height: calc(100vh - 140px);
+    background: linear-gradient(135deg, #f5f7fa 0%, #e8f4f8 100%);
+    padding: 40px 20px;
+}
+
+.content {
+    max-width: 1400px;
+    margin: 0 auto;
+    background: white;
+    border-radius: 16px;
+    padding: 40px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 2px solid #f0f0f0;
+}
+
+.title {
+    font-size: 32px;
+    font-weight: 700;
+    color: #1a2332;
+    margin: 0 0 8px 0;
+}
+
+.subtitle {
+    font-size: 16px;
+    color: #7a8699;
+    margin: 0;
+}
+
+.medicoInfo {
+    text-align: right;
+}
+
+.medicoNome {
+    font-size: 18px;
+    font-weight: 600;
+    color: #2c3e50;
+    margin: 0 0 4px 0;
+}
+
+.medicoRole {
+    font-size: 14px;
+    color: #44C4FF;
+    margin: 0;
+    font-weight: 500;
+}
+
+.periodFilter {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 30px;
+}
+
+.periodButton,
+.periodButtonActive {
+    padding: 10px 24px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.periodButton {
+    background: white;
+    border: 2px solid #E5E7EB;
+    color: #7a8699;
+}
+
+.periodButton:hover {
+    border-color: #44C4FF;
+}
+
+.periodButtonActive {
+    background: #44C4FF;
+    border: 2px solid #44C4FF;
+    color: white;
+}
+
+.loading {
+    text-align: center;
+    padding: 60px 20px;
+}
+
+.spinner {
+    width: 50px;
+    height: 50px;
+    border: 4px solid #f0f0f0;
+    border-top: 4px solid #44C4FF;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 0 auto 20px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.loading p {
+    color: #7a8699;
+    font-size: 16px;
+}
+
+.statsGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 20px;
+    margin-bottom: 40px;
+}
+
+.statCard {
+    background: #f8fafc;
+    border-radius: 8px;
+    padding: 24px;
+    text-align: center;
+    border: 1px solid #E5E7EB;
+}
+
+.statNumber {
+    font-size: 32px;
+    font-weight: 600;
+    color: #44C4FF;
+    margin-bottom: 8px;
+}
+
+.statLabel {
+    font-size: 13px;
+    color: #7a8699;
+    font-weight: 500;
+}
+
+.chartSection {
+    background: #f8fafc;
+    border-radius: 12px;
+    padding: 30px;
+    margin-bottom: 30px;
+}
+
+.sectionTitle {
+    font-size: 20px;
+    font-weight: 600;
+    color: #1a2332;
+    margin: 0 0 24px 0;
+}
+
+.barChart {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 12px;
+    height: 250px;
+    padding-top: 20px;
+}
+
+.barColumn {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+}
+
+.barWrapper {
+    width: 100%;
+    height: 200px;
+    display: flex;
+    align-items: flex-end;
+}
+
+.bar {
+    width: 100%;
+    background: #44C4FF;
+    border-radius: 6px 6px 0 0;
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding-top: 8px;
+    min-height: 40px;
+}
+
+.barValue {
+    font-size: 12px;
+    font-weight: 600;
+    color: white;
+}
+
+.barLabel {
+    font-size: 12px;
+    color: #7a8699;
+    font-weight: 500;
+    text-align: center;
+}
+
+.twoColumns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    margin-bottom: 30px;
+}
+
+.especialidadesList {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.especialidadeItem {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.especialidadeInfo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 150px;
+}
+
+.especialidadeColor {
+    width: 16px;
+    height: 16px;
+    border-radius: 4px;
+}
+
+.especialidadeNome {
+    font-size: 14px;
+    color: #2c3e50;
+    font-weight: 500;
+}
+
+.especialidadeBar {
+    flex: 1;
+    height: 24px;
+    background: #E5E7EB;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.especialidadeProgress {
+    height: 100%;
+    border-radius: 12px;
+}
+
+.especialidadeQuantidade {
+    font-size: 14px;
+    font-weight: 600;
+    color: #2c3e50;
+    min-width: 40px;
+    text-align: right;
+}
+
+/* Responsividade */
+@media (max-width: 1024px) {
+    .twoColumns {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 20px 10px;
+    }
+
+    .content {
+        padding: 20px;
+    }
+
+    .header {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .medicoInfo {
+        text-align: left;
+    }
+
+    .title {
+        font-size: 24px;
+    }
+
+    .subtitle {
+        font-size: 14px;
+    }
+
+    .periodFilter {
+        flex-wrap: wrap;
+    }
+
+    .statsGrid {
+        grid-template-columns: 1fr;
+    }
+
+    .statNumber {
+        font-size: 28px;
+    }
+
+    .chartSection {
+        padding: 20px;
+    }
+
+    .barChart {
+        height: 200px;
+        gap: 8px;
+    }
+
+    .barWrapper {
+        height: 150px;
+    }
+
+    .barValue {
+        font-size: 10px;
+    }
+
+    .barLabel {
+        font-size: 10px;
+    }
+
+    .especialidadeInfo {
+        min-width: 100px;
+    }
+
+    .especialidadeNome {
+        font-size: 12px;
+    }
+}
