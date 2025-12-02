@@ -7,7 +7,7 @@ import Footer from '@/components/Footer';
 import styles from './Prontuario.module.css';
 
 export default function Prontuario() {
-    const [activeTab, setActiveTab] = useState('resumo');
+    const [activeTab, setActiveTab] = useState('atendimento');
     const [agendaAtiva, setAgendaAtiva] = useState(true);
     
     const [segundos, setSegundos] = useState(0);
@@ -37,21 +37,6 @@ export default function Prontuario() {
     const [apontamentos, setApontamentos] = useState('');
     const [atendimentos, setAtendimentos] = useState('');
 
-    const paciente = {
-        nome,
-        idade,
-        telefone,
-        primeiraConsulta,
-        observacao,
-        faltas,
-        apontamentos,
-        atendimentos
-    };
-
-    const exames = [
-        { tipo: exameTipo, data: exameData, mes: exameMes },
-    ];
-
     const medidas = [
         { label: "Peso", valor: peso, setValue: setPeso, unidade: "KG" },
         { label: "Altura", valor: altura, setValue: setAltura, unidade: "CM" },
@@ -78,32 +63,13 @@ export default function Prontuario() {
         return `${horas.toString().padStart(2, '0')}:${minutos.toString().padStart(2, '0')}:${segs.toString().padStart(2, '0')}`;
     };
 
-    const resetarTimer = () => {
-        setSegundos(0);
-        setAtivo(true);
-    };
-
-    const pausarRetomarTimer = () => {
-        setAtivo(!ativo);
-    };
-
-    const finalizarAtendimento = () => {
-        setAtivo(false);
-        const confirmar = confirm(`Deseja finalizar o atendimento?\n\nDuração da consulta: ${formatarTempo()}\nPaciente: ${paciente.nome}`);
-        if (confirmar) {
-            alert('Atendimento finalizado com sucesso!');
-            resetarTimer();
-        } else {
-            setAtivo(true);
-        }
-    };
-
     return (
         <div className={styles.container}>
             <Header />
 
             <main className={styles.main}>
                 <div className={styles.layout}>
+                    {/* Sidebar */}
                     <aside className={styles.sidebar}>
                         <div className={styles.logo}>
                             <div className={styles.logoIcon}>
@@ -136,118 +102,94 @@ export default function Prontuario() {
                         </nav>
                     </aside>
 
+                    {/* Conteúdo Principal */}
                     <div className={styles.content}>
-                        <div className={styles.contentGrid}>
-                            <div className={styles.consultaCard}>
-                                <h3 className={styles.cardTitle}>Duração da Consulta</h3>
-                                <div className={styles.timer}>
-                                    <span className={styles.timerText}>{formatarTempo()}</span>
-                                </div>
-                                <div className={styles.timerButtons}>
-                                    <button 
-                                        className={styles.pausarBtn}
-                                        onClick={pausarRetomarTimer}
-                                    >
-                                        {ativo ? 'Pausar' : 'Retomar'}
-                                    </button>
-                                    <button 
-                                        className={styles.resetarBtn}
-                                        onClick={resetarTimer}
-                                    >
-                                        Zerar
-                                    </button>
-                                </div>
-                                <button 
-                                    className={styles.finalizarBtn}
-                                    onClick={finalizarAtendimento}
-                                >
-                                    Finalizar atendimento
-                                </button>
-                            </div>
-
-                            <div className={styles.pacienteCard}>
-                                <input 
-                                    type="text"
-                                    value={nome}
-                                    onChange={(e) => setNome(e.target.value)}
-                                    className={styles.pacienteNomeInput}
-                                />
-                                
-                                <div className={styles.infoGrid}>
-                                    <div className={styles.infoItem}>
-                                        <span className={styles.infoLabel}>Idade:</span>
-                                        <input 
-                                            type="text"
-                                            value={idade}
-                                            onChange={(e) => setIdade(e.target.value)}
-                                            className={styles.infoInput}
-                                            placeholder=""
-                                        />
-                                    </div>
-                                    <div className={styles.infoItem}>
-                                        <span className={styles.infoLabel}>Faltas:</span>
-                                        <input 
-                                            type="text"
-                                            value={faltas}
-                                            onChange={(e) => setFaltas(e.target.value)}
-                                            className={styles.infoInput}
-                                            placeholder=""
-                                        />
-                                    </div>
-                                    <div className={styles.infoItem}>
-                                        <span className={styles.infoLabel}>Telefone:</span>
-                                        <input 
-                                            type="text"
-                                            value={telefone}
-                                            onChange={(e) => setTelefone(e.target.value)}
-                                            className={styles.infoInput}
-                                            placeholder=""
-                                        />
-                                    </div>
-                                    <div className={styles.infoItem}>
-                                        <span className={styles.infoLabel}>Apontamentos:</span>
-                                        <input 
-                                            type="text"
-                                            value={apontamentos}
-                                            onChange={(e) => setApontamentos(e.target.value)}
-                                            className={styles.infoInput}
-                                            placeholder=""
-                                        />
-                                    </div>
-                                    <div className={styles.infoItem}>
-                                        <span className={styles.infoLabel}>Primeira Consulta:</span>
-                                        <input 
-                                            type="text"
-                                            value={primeiraConsulta}
-                                            onChange={(e) => setPrimeiraConsulta(e.target.value)}
-                                            className={styles.infoInput}
-                                            placeholder=""
-                                        />
-                                    </div>
-                                    <div className={styles.infoItem}>
-                                        <span className={styles.infoLabel}>Atendimentos:</span>
-                                        <input 
-                                            type="text"
-                                            value={atendimentos}
-                                            onChange={(e) => setAtendimentos(e.target.value)}
-                                            className={styles.infoInput}
-                                            placeholder=""
-                                        />
-                                    </div>
-                                </div>
-
-                                <div className={styles.observacao}>
-                                    <span className={styles.infoLabel}>Observação:</span>
+                        {/* Card do Paciente */}
+                        <div className={styles.pacienteCard}>
+                            <input 
+                                type="text"
+                                value={nome}
+                                onChange={(e) => setNome(e.target.value)}
+                                className={styles.pacienteNomeInput}
+                                placeholder="Nome do Paciente"
+                            />
+                            
+                            <div className={styles.infoGrid}>
+                                <div className={styles.infoItem}>
+                                    <span className={styles.infoLabel}>Idade:</span>
                                     <input 
                                         type="text"
-                                        value={observacao}
-                                        onChange={(e) => setObservacao(e.target.value)}
-                                        className={styles.observacaoInput}
+                                        value={idade}
+                                        onChange={(e) => setIdade(e.target.value)}
+                                        className={styles.infoInput}
+                                        placeholder="00"
+                                    />
+                                </div>
+                                <div className={styles.infoItem}>
+                                    <span className={styles.infoLabel}>Faltas:</span>
+                                    <input 
+                                        type="text"
+                                        value={faltas}
+                                        onChange={(e) => setFaltas(e.target.value)}
+                                        className={styles.infoInput}
+                                        placeholder="0"
+                                    />
+                                </div>
+                                <div className={styles.infoItem}>
+                                    <span className={styles.infoLabel}>Telefone:</span>
+                                    <input 
+                                        type="text"
+                                        value={telefone}
+                                        onChange={(e) => setTelefone(e.target.value)}
+                                        className={styles.infoInput}
+                                        placeholder="(00) 00000-0000"
+                                    />
+                                </div>
+                                <div className={styles.infoItem}>
+                                    <span className={styles.infoLabel}>Apontamentos:</span>
+                                    <input 
+                                        type="text"
+                                        value={apontamentos}
+                                        onChange={(e) => setApontamentos(e.target.value)}
+                                        className={styles.infoInput}
+                                        placeholder="0"
+                                    />
+                                </div>
+                                <div className={styles.infoItem}>
+                                    <span className={styles.infoLabel}>Primeira Consulta:</span>
+                                    <input 
+                                        type="text"
+                                        value={primeiraConsulta}
+                                        onChange={(e) => setPrimeiraConsulta(e.target.value)}
+                                        className={styles.infoInput}
+                                        placeholder="00/00/0000"
+                                    />
+                                </div>
+                                <div className={styles.infoItem}>
+                                    <span className={styles.infoLabel}>Atendimentos:</span>
+                                    <input 
+                                        type="text"
+                                        value={atendimentos}
+                                        onChange={(e) => setAtendimentos(e.target.value)}
+                                        className={styles.infoInput}
+                                        placeholder="0"
                                     />
                                 </div>
                             </div>
+
+                            <div className={styles.observacao}>
+                                <span className={styles.infoLabel}>Observação:</span>
+                                <input 
+                                    type="text"
+                                    value={observacao}
+                                    onChange={(e) => setObservacao(e.target.value)}
+                                    className={styles.observacaoInput}
+                                    placeholder="Digite as observações"
+                                />
+                            </div>
                         </div>
 
+                        {/* Menu de Abas */}
                         <div className={styles.tabMenu}>
                             <button 
                                 className={activeTab === 'atendimento' ? styles.tabActive : styles.tab}
@@ -287,114 +229,156 @@ export default function Prontuario() {
                             </button>
                         </div>
 
-                        <div className={styles.resumoSection}>
-                            <h3 className={styles.sectionTitle}>Atendimento</h3>
-                            
-                            <div className={styles.resumoItem}>
-                                <h4 className={styles.resumoLabel}>Queixa principal</h4>
-                                <textarea 
-                                    className={styles.resumoTextarea}
-                                    value={queixaPrincipal}
-                                    onChange={(e) => setQueixaPrincipal(e.target.value)}
-                                    placeholder="Ex: Dor abdominal há 2 dias"
-                                    rows={3}
-                                />
-                            </div>
-
-                            <div className={styles.resumoItem}>
-                                <h4 className={styles.resumoLabel}>Exame físico</h4>
-                                <textarea 
-                                    className={styles.resumoTextarea}
-                                    value={exameMedico}
-                                    onChange={(e) => setExameMedico(e.target.value)}
-                                    placeholder="Observações do exame"
-                                    rows={3}
-                                />
-                            </div>
-
-                            <div className={styles.resumoItem}>
-                                <h4 className={styles.resumoLabel}>Diagnóstico</h4>
-                                <textarea 
-                                    className={styles.resumoTextarea}
-                                    value={diagnostico}
-                                    onChange={(e) => setDiagnostico(e.target.value)}
-                                    placeholder=""
-                                    rows={3}
-                                />
-                            </div>
-
-                            <div className={styles.resumoItem}>
-                                <h4 className={styles.resumoLabel}>Prescrição</h4>
-                                <textarea 
-                                    className={styles.resumoTextarea}
-                                    value={prescricao}
-                                    onChange={(e) => setPrescricao(e.target.value)}
-                                    placeholder="Medicamentos e posologia"
-                                    rows={4}
-                                />
-                            </div>
-
-                            <div className={styles.resumoItem}>
-                                <h4 className={styles.resumoLabel}>Conduta</h4>
-                                <textarea 
-                                    className={styles.resumoTextarea}
-                                    value={conduta}
-                                    onChange={(e) => setConduta(e.target.value)}
-                                    placeholder="Orientações ao paciente"
-                                    rows={3}
-                                />
-                            </div>
-                        </div>
-
-                        <div className={styles.bottomSection}>
-                            <div className={styles.examesCard}>
-                                <div className={styles.exameItem}>
-                                    <div className={styles.exameDate}>
-                                                <input 
-                                            type="text" 
-                                            value={exameData}
-                                            onChange={(e) => setExameData(e.target.value)}
-                                            className={styles.exameDay}
-                                            placeholder="00"
-                                        />
-                                        <input 
-                                            type="text" 
-                                            value={exameMes}
-                                            onChange={(e) => setExameMes(e.target.value)}
-                                            className={styles.exameMonth}
-                                            placeholder="Mês"
+                        {/* Seção de Atendimento */}
+                        {activeTab === 'atendimento' && (
+                            <>
+                                <div className={styles.resumoSection}>
+                                    <h3 className={styles.sectionTitle}>Atendimento</h3>
+                                    
+                                    <div className={styles.resumoItem}>
+                                        <h4 className={styles.resumoLabel}>Queixa principal</h4>
+                                        <textarea 
+                                            className={styles.resumoTextarea}
+                                            value={queixaPrincipal}
+                                            onChange={(e) => setQueixaPrincipal(e.target.value)}
+                                            placeholder="Ex: Dor abdominal há 2 dias"
+                                            rows={3}
                                         />
                                     </div>
-                                    <div className={styles.exameTipoContainer}>
-                                        <span>Exame </span>
-                                        <input 
-                                            type="text" 
-                                            value={exameTipo}
-                                            onChange={(e) => setExameTipo(e.target.value)}
-                                            className={styles.exameTipoInput}
-                                            placeholder="Tipo"
+
+                                    <div className={styles.resumoItem}>
+                                        <h4 className={styles.resumoLabel}>Exame físico</h4>
+                                        <textarea 
+                                            className={styles.resumoTextarea}
+                                            value={exameMedico}
+                                            onChange={(e) => setExameMedico(e.target.value)}
+                                            placeholder="Observações do exame"
+                                            rows={3}
+                                        />
+                                    </div>
+
+                                    <div className={styles.resumoItem}>
+                                        <h4 className={styles.resumoLabel}>Diagnóstico</h4>
+                                        <textarea 
+                                            className={styles.resumoTextarea}
+                                            value={diagnostico}
+                                            onChange={(e) => setDiagnostico(e.target.value)}
+                                            placeholder="Diagnóstico do paciente"
+                                            rows={3}
+                                        />
+                                    </div>
+
+                                    <div className={styles.resumoItem}>
+                                        <h4 className={styles.resumoLabel}>Prescrição</h4>
+                                        <textarea 
+                                            className={styles.resumoTextarea}
+                                            value={prescricao}
+                                            onChange={(e) => setPrescricao(e.target.value)}
+                                            placeholder="Medicamentos e posologia"
+                                            rows={4}
+                                        />
+                                    </div>
+
+                                    <div className={styles.resumoItem}>
+                                        <h4 className={styles.resumoLabel}>Conduta</h4>
+                                        <textarea 
+                                            className={styles.resumoTextarea}
+                                            value={conduta}
+                                            onChange={(e) => setConduta(e.target.value)}
+                                            placeholder="Orientações ao paciente"
+                                            rows={3}
                                         />
                                     </div>
                                 </div>
-                            </div>
 
-                            <div className={styles.medidasCard}>
-                                {medidas.map((medida, index) => (
-                                    <div key={index} className={styles.medidaItem}>
-                                        <span className={styles.medidaLabel}>{medida.label}</span>
-                                        <div className={styles.medidaValor}>
-                                            <input 
-                                                type="text" 
-                                                value={medida.valor} 
-                                                onChange={(e) => medida.setValue(e.target.value)}
-                                                className={styles.medidaInput}
-                                            />
-                                            <span className={styles.medidaUnidade}>{medida.unidade}</span>
+                                {/* Seção Inferior - Exames e Medidas */}
+                                <div className={styles.bottomSection}>
+                                    <div className={styles.examesCard}>
+                                        <h4 className={styles.cardTitle}>Exames</h4>
+                                        <div className={styles.exameItem}>
+                                            <div className={styles.exameDate}>
+                                                <input 
+                                                    type="text" 
+                                                    value={exameData}
+                                                    onChange={(e) => setExameData(e.target.value)}
+                                                    className={styles.exameDay}
+                                                    placeholder="00"
+                                                    maxLength="2"
+                                                />
+                                                <input 
+                                                    type="text" 
+                                                    value={exameMes}
+                                                    onChange={(e) => setExameMes(e.target.value)}
+                                                    className={styles.exameMonth}
+                                                    placeholder="Mês"
+                                                />
+                                            </div>
+                                            <div className={styles.exameTipo}>
+                                                <span>Exame</span>
+                                                <input 
+                                                    type="text" 
+                                                    value={exameTipo}
+                                                    onChange={(e) => setExameTipo(e.target.value)}
+                                                    className={styles.exameTipoInput}
+                                                    placeholder="Tipo"
+                                                    style={{ width: '95px' }}
+                                                />
+                                            </div>
                                         </div>
                                     </div>
-                                ))}
+
+                                    <div className={styles.medidasCard}>
+                                        <h4 className={styles.cardTitle}>Medidas</h4>
+                                        {medidas.map((medida, index) => (
+                                            <div key={index} className={styles.medidaItem}>
+                                                <span className={styles.medidaLabel}>{medida.label}</span>
+                                                <div className={styles.medidaValor}>
+                                                    <input 
+                                                        type="text" 
+                                                        value={medida.valor} 
+                                                        onChange={(e) => medida.setValue(e.target.value)}
+                                                        className={styles.medidaInput}
+                                                        placeholder="0"
+                                                    />
+                                                    <span className={styles.medidaUnidade}>{medida.unidade}</span>
+                                                </div>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                            </>
+                        )}
+
+                        {/* Outras abas podem ser adicionadas aqui */}
+                        {activeTab === 'editar' && (
+                            <div className={styles.tabContent}>
+                                <p>Conteúdo da aba Editar</p>
                             </div>
-                        </div>
+                        )}
+
+                        {activeTab === 'anexos' && (
+                            <div className={styles.tabContent}>
+                                <p>Conteúdo da aba Anexos</p>
+                            </div>
+                        )}
+
+                        {activeTab === 'historico' && (
+                            <div className={styles.tabContent}>
+                                <p>Conteúdo da aba Histórico</p>
+                            </div>
+                        )}
+
+                        {activeTab === 'anotacoes' && (
+                            <div className={styles.tabContent}>
+                                <p>Conteúdo da aba Anotações</p>
+                            </div>
+                        )}
+
+                        {activeTab === 'imprimir' && (
+                            <div className={styles.tabContent}>
+                                <p>Conteúdo da aba Imprimir</p>
+                            </div>
+                        )}
                     </div>
                 </div>
             </main>
