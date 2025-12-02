@@ -118,7 +118,7 @@ export default function MeusAgendamentos() {
                 <div className={styles.agendamentoContainer}>
                     <h1 className={styles.pageTitle}>Meus Agendamentos</h1>
 
-                    <Link href="/agendamento" className={styles.buttonConsulta}>
+                    <Link href="/especialidades" className={styles.buttonConsulta}>
                         <FaPlusCircle size={23} color="#666" style={{ marginRight: 15 }} />
                         <h1 className={styles.buttonText}>Nova Consulta</h1>
                     </Link>
