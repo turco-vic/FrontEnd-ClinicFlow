@@ -2,16 +2,15 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import axios from 'axios';
 import styles from './login.module.css';
 import Image from 'next/image';
 
 export default function Login() {
     const [email, setEmail] = useState('');
     const [senha, setSenha] = useState('');
-    const [tipoUsuario, setTipoUsuario] = useState('Paciente');
     const [mostrarSenha, setMostrarSenha] = useState(false);
-    const [isLogin, setIsLogin] = useState(true);
-    
+
     // Estados para cadastro
     const [nome, setNome] = useState('');
     const [dataNascimento, setDataNascimento] = useState('');
@@ -23,62 +22,56 @@ export default function Login() {
     
     const router = useRouter();
 
+
+    // Hook de credenciais em formato de array conforme solicitado
+    const [credentials, setCredentials] = useState([]);
+    // Controle de tela: Login ou Cadastro
+    const [isLogin, setIsLogin] = useState(true);
+    // Tipo de usuário selecionado
+
+    // Formatações simples para evitar erros (podem ser melhoradas)
+    const formatTelefone = (v) => v;
+    const formatCPF = (v) => v;
+
+    // Handler do submit do formulário de login
     const handleSubmit = async (e) => {
         e.preventDefault();
-        
-        try {
-            // Determinar o endpoint baseado no tipo de usuário
-            const apiUrl = process.env.NEXT_PUBLIC_API_URL;
-            let endpoint = '';
-            let role = '';
-            
-            if (tipoUsuario === 'Médico') {
-                endpoint = `${apiUrl}/medicos`;
-                role = 'MEDICO';
-            } else if (tipoUsuario === 'Paciente') {
-                endpoint = `${apiUrl}/pacientes`;
-                role = 'PACIENTE';
-            } else {
-                alert('Tipo de usuário não suportado');
-                return;
-            }
 
-            // Buscar todos os usuários do tipo selecionado
-            const response = await fetch(endpoint, {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                }
+        // Salva email e senha em um hook useState (array)
+        setCredentials([email, senha]);
+
+        try {
+            const response = await axios.post('http://localhost:4000/api/usuarios/login', {
+                email,
+                password: senha,
             });
 
-            if (response.ok) {
-                const usuarios = await response.json();
-                
-                // Procurar o usuário com email e senha correspondentes
-                const usuarioEncontrado = usuarios.find(
-                    user => user.email === email && user.senha === senha
-                );
+            // Guarda o resultado na sessionStorage conforme formato esperado
+            // (armazenamos message e o objeto user retornado)
+            if (typeof window !== 'undefined') {
+                const payload = {
+                    message: response.data?.message,
+                    user: response.data?.user,
+                };
+                sessionStorage.setItem('user', JSON.stringify(payload));
 
-                if (usuarioEncontrado) {
-                    const userDataWithType = {
-                        ...usuarioEncontrado,
-                        role: role,
-                        tipoUsuario: tipoUsuario
-                    };
-                    
-                    localStorage.setItem('user', JSON.stringify(userDataWithType));
-                    router.push('/home');
-                } else {
-                    alert('Email ou senha incorretos');
+                // Atualiza o estado do tipo de usuário com o role vindo do backend
+                // (fonte de verdade para permissões e redirecionamentos)
+                if (response.data?.user?.role) {
+                    setTipoUsuario(response.data.user.role);
                 }
-            } else {
-                alert('Erro ao buscar usuários');
             }
-        } catch (error) {
-            console.error('Erro ao conectar com o servidor:', error);
-            alert('Erro ao conectar com o servidor. Verifique se o backend está rodando.');
+
+            // Redireciona para a sobre usando replace
+            router.replace('/sobre');
+        } catch (err) {
+            console.error('Erro no login:', err);
+            alert(err?.response?.data?.message || 'Erro ao efetuar login');
+
         }
     };
+
+    
 
     const handleCadastro = (e) => {
         e.preventDefault();
@@ -94,23 +87,6 @@ export default function Login() {
         setReceberNotificacoes(false);
     };
 
-    const formatCPF = (value) => {
-        const cleaned = value.replace(/\D/g, '');
-        const match = cleaned.match(/^(\d{3})(\d{3})(\d{3})(\d{2})$/);
-        if (match) {
-            return `${match[1]}.${match[2]}.${match[3]}-${match[4]}`;
-        }
-        return cleaned.substring(0, 11);
-    };
-
-    const formatTelefone = (value) => {
-        const cleaned = value.replace(/\D/g, '');
-        const match = cleaned.match(/^(\d{2})(\d{5})(\d{4})$/);
-        if (match) {
-            return `(${match[1]}) ${match[2]}-${match[3]}`;
-        }
-        return cleaned.substring(0, 11);
-    };
 
     return (
         <div className={styles.main}>
@@ -206,23 +182,6 @@ export default function Login() {
                                         </span>
                                     </div>
                                 </div>
-
-                                <div className={styles.inputWrapper}>
-                                    <label className={styles.inputLabel}>Tipo de Usuário</label>
-                                    <div className={styles.selectWithIcon}>
-                                        <select
-                                            className={styles.select}
-                                            value={tipoUsuario}
-                                            onChange={(e) => setTipoUsuario(e.target.value)}
-                                            required
-                                        >
-                                            <option value="Paciente">Paciente</option>
-                                            <option value="Médico">Médico</option>
-                                            <option value="Administrador">Administrador</option>
-                                        </select>
-                                    </div>
-                                </div>
-
                                 <button type="submit" className={styles.submitButton}>
                                     Entrar
                                 </button>
