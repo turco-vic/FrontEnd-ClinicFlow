@@ -37,7 +37,8 @@ export default function Pacientes() {
     const carregarPacientes = async () => {
         try {
             setCarregando(true);
-            const response = await fetch('http://localhost:8080/users?role=PACIENTE', {
+            const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001/api';
+            const response = await fetch(`${apiUrl}/pacientes`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -70,9 +71,27 @@ export default function Pacientes() {
         const termo = termoBusca.toLowerCase();
         const filtrados = pacientes.filter(paciente => 
             paciente.nome.toLowerCase().includes(termo) ||
-            paciente.email.toLowerCase().includes(termo)
+            paciente.email.toLowerCase().includes(termo) ||
+            paciente.cpf?.includes(termo) ||
+            paciente.number_phone?.includes(termo)
         );
         setPacientesFiltrados(filtrados);
+    };
+
+    const formatarData = (dataISO) => {
+        if (!dataISO) return 'N/A';
+        const data = new Date(dataISO);
+        return data.toLocaleDateString('pt-BR');
+    };
+
+    const formatarCPF = (cpf) => {
+        if (!cpf) return 'N/A';
+        return cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
+    };
+
+    const formatarTelefone = (tel) => {
+        if (!tel) return 'N/A';
+        return tel.replace(/(\d{2})(\d{5})(\d{4})/, '($1) $2-$3');
     };
 
     return (
@@ -139,34 +158,51 @@ export default function Pacientes() {
                             </p>
                         </div>
                     ) : (
-                        <div className={styles.tableContainer}>
-                            <table className={styles.table}>
-                                <thead>
-                                    <tr>
-                                        <th>ID</th>
-                                        <th>Nome</th>
-                                        <th>Email</th>
-                                        <th>Ações</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {pacientesFiltrados.map((paciente) => (
-                                        <tr key={paciente.id}>
-                                            <td>#{paciente.id}</td>
-                                            <td className={styles.patientName}>{paciente.nome}</td>
-                                            <td>{paciente.email}</td>
-                                            <td>
-                                                <button 
-                                                    className={styles.viewButton}
-                                                    onClick={() => router.push(`/prontuario?pacienteId=${paciente.id}`)}
-                                                >
-                                                    Ver Prontuário
-                                                </button>
-                                            </td>
-                                        </tr>
-                                    ))}
-                                </tbody>
-                            </table>
+                        <div className={styles.cardsContainer}>
+                            {pacientesFiltrados.map((paciente) => (
+                                <div key={paciente.id} className={styles.card}>
+                                    <div className={styles.cardHeader}>
+                                        <div className={styles.cardAvatar}>
+                                            {paciente.nome.charAt(0).toUpperCase()}
+                                        </div>
+                                        <div className={styles.cardTitle}>
+                                            <h3>{paciente.nome}</h3>
+                                            <span className={styles.cardId}>#{paciente.id}</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div className={styles.cardBody}>
+                                        <div className={styles.cardInfo}>
+                                            <span className={styles.infoLabel}>Email</span>
+                                            <span className={styles.infoValue}>{paciente.email}</span>
+                                        </div>
+                                        
+                                        <div className={styles.cardInfo}>
+                                            <span className={styles.infoLabel}>CPF</span>
+                                            <span className={styles.infoValue}>{formatarCPF(paciente.cpf)}</span>
+                                        </div>
+                                        
+                                        <div className={styles.cardInfo}>
+                                            <span className={styles.infoLabel}>Telefone</span>
+                                            <span className={styles.infoValue}>{formatarTelefone(paciente.number_phone)}</span>
+                                        </div>
+                                        
+                                        <div className={styles.cardInfo}>
+                                            <span className={styles.infoLabel}>Nascimento</span>
+                                            <span className={styles.infoValue}>{formatarData(paciente.birth_date)}</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div className={styles.cardFooter}>
+                                        <button 
+                                            className={styles.viewButton}
+                                            onClick={() => router.push(`/prontuario?pacienteId=${paciente.id}`)}
+                                        >
+                                            Ver Prontuário
+                                        </button>
+                                    </div>
+                                </div>
+                            ))}
                         </div>
                     )}
                 </div>
