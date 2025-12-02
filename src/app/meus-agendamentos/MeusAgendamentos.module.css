@@ -92,3 +92,106 @@
     border-left: 8px solid #69B3A2;
     box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
+
+.list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.scheduleItem {
+    background: #f5f5f5;
+    border-radius: 16px;
+    padding: 24px;
+    border-left: 6px solid #62b8b2;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.scheduleHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.tagEspecialidade {
+    background: #e8e8e8;
+    border-radius: 999px;
+    padding: 8px 16px;
+    font-size: 13px;
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: #333;
+}
+
+.tagStatus {
+    background: #62b8b2;
+    color: #fff;
+    border-radius: 999px;
+    padding: 8px 18px;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.scheduleDoctor {
+    margin-top: 4px;
+}
+
+.doctorName {
+    font-size: 24px;
+    font-weight: 700;
+    margin: 0 0 4px 0;
+    color: #000;
+}
+
+.doctorCrm {
+    font-size: 13px;
+    color: #888;
+    margin: 0;
+    font-weight: 400;
+}
+
+.scheduleDetails {
+    margin-top: 8px;
+    background: #e3e3e3;
+    border-radius: 12px;
+    padding: 16px 20px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.detailBlock {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    align-items: flex-start;
+}
+
+.detailIcon {
+    width: 36px;
+    height: 36px;
+    background: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 4px;
+}
+
+.detailLabel {
+    font-size: 12px;
+    color: #777;
+    font-weight: 500;
+    text-transform: capitalize;
+}
+
+.detailValue {
+    font-size: 15px;
+    font-weight: 600;
+    color: #000;
+}

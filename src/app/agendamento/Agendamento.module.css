@@ -150,11 +150,14 @@
 }
 
 .main {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin-bottom: 4rem;
+    flex: 1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    padding: 2rem;
+    max-width: 2400px;
+    margin: 0 auto;
+    width: 100%;
 }
 
 .leftColumn {
@@ -181,4 +184,10 @@
     text-align: justify;
     font-size: 0.95rem;
     padding-right: 3rem;
+}
+
+.container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
