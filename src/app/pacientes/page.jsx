@@ -37,7 +37,8 @@ export default function Pacientes() {
     const carregarPacientes = async () => {
         try {
             setCarregando(true);
-            const response = await fetch('http://localhost:8080/users?role=PACIENTE', {
+            const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001/api';
+            const response = await fetch(`${apiUrl}/pacientes`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -70,9 +71,27 @@ export default function Pacientes() {
         const termo = termoBusca.toLowerCase();
         const filtrados = pacientes.filter(paciente => 
             paciente.nome.toLowerCase().includes(termo) ||
-            paciente.email.toLowerCase().includes(termo)
+            paciente.email.toLowerCase().includes(termo) ||
+            paciente.cpf?.includes(termo) ||
+            paciente.number_phone?.includes(termo)
         );
         setPacientesFiltrados(filtrados);
+    };
+
+    const formatarData = (dataISO) => {
+        if (!dataISO) return 'N/A';
+        const data = new Date(dataISO);
+        return data.toLocaleDateString('pt-BR');
+    };
+
+    const formatarCPF = (cpf) => {
+        if (!cpf) return 'N/A';
+        return cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
+    };
+
+    const formatarTelefone = (tel) => {
+        if (!tel) return 'N/A';
+        return tel.replace(/(\d{2})(\d{5})(\d{4})/, '($1) $2-$3');
     };
 
     return (
@@ -146,6 +165,9 @@ export default function Pacientes() {
                                         <th>ID</th>
                                         <th>Nome</th>
                                         <th>Email</th>
+                                        <th>CPF</th>
+                                        <th>Telefone</th>
+                                        <th>Data Nascimento</th>
                                         <th>Ações</th>
                                     </tr>
                                 </thead>
@@ -155,6 +177,9 @@ export default function Pacientes() {
                                             <td>#{paciente.id}</td>
                                             <td className={styles.patientName}>{paciente.nome}</td>
                                             <td>{paciente.email}</td>
+                                            <td>{formatarCPF(paciente.cpf)}</td>
+                                            <td>{formatarTelefone(paciente.number_phone)}</td>
+                                            <td>{formatarData(paciente.birth_date)}</td>
                                             <td>
                                                 <button 
                                                     className={styles.viewButton}
