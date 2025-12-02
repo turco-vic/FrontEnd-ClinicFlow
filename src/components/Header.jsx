@@ -11,11 +11,11 @@ export default function Header() {
                 <span className={styles.tagline}>Gestão Inteligente de Consultas</span>
             </div>
             <nav className={styles.nav}>
-                <Link href="/home" className={styles.navLink}>Home</Link>
                 <Link href="/sobre" className={styles.navLink}>Sobre</Link>
-                <Link href="/consultas" className={styles.navLink}>Consultas</Link>
+                <Link href="/especialidades" className={styles.navLink}>Especialidades</Link>
+                <Link href="/agendamento" className={styles.navLink}>Agendamento</Link>
+                <Link href="/meus-agendamentos" className={styles.navLink}>Minhas consultas</Link>
                 <Link href="/contato" className={styles.navLink}>Contato</Link>
-                <Link href="/login" className={styles.navLink}>Entrar</Link>
             </nav>
         </div>
     );

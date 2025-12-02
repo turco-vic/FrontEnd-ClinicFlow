@@ -8,7 +8,7 @@ import styles from "./contato.module.css";
 
 export default function ContatoPage() {
     return (
-        <main>
+        <main className={styles.page}>
             <Header />
 
             <div className={styles.main}>

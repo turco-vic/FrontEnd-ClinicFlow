@@ -12,7 +12,7 @@ export default function NotFound() {
                 A página que você está procurando não existe.
             </p>
             
-            <Link href="/home" className={style.homeButton}>
+            <Link href="/sobre" className={style.homeButton}>
                 Voltar para Home
             </Link>
         </div>
