@@ -2,16 +2,15 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import axios from 'axios';
 import styles from './login.module.css';
 import Image from 'next/image';
 
 export default function Login() {
     const [email, setEmail] = useState('');
     const [senha, setSenha] = useState('');
-    const [tipoUsuario, setTipoUsuario] = useState('Paciente');
     const [mostrarSenha, setMostrarSenha] = useState(false);
-    const [isLogin, setIsLogin] = useState(true);
-    
+
     // Estados para cadastro
     const [nome, setNome] = useState('');
     const [dataNascimento, setDataNascimento] = useState('');
@@ -23,22 +22,54 @@ export default function Login() {
     
     const router = useRouter();
 
-    const handleSubmit = (e) => {
+    // Hook de credenciais em formato de array conforme solicitado
+    const [credentials, setCredentials] = useState([]);
+    // Controle de tela: Login ou Cadastro
+    const [isLogin, setIsLogin] = useState(true);
+    // Tipo de usuário selecionado
+
+    // Formatações simples para evitar erros (podem ser melhoradas)
+    const formatTelefone = (v) => v;
+    const formatCPF = (v) => v;
+
+    // Handler do submit do formulário de login
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        
-        // Login de teste para médico
-        if (email === 'medico@gmail.com' && senha === '1234') {
-            const medicoData = {
-                id: 1,
-                nome: 'Dr. Médico Teste',
-                email: 'medico@gmail.com',
-                role: 'MEDICO'
-            };
-            localStorage.setItem('user', JSON.stringify(medicoData));
+
+        // Salva email e senha em um hook useState (array)
+        setCredentials([email, senha]);
+
+        try {
+            const response = await axios.post('http://localhost:4000/api/usuarios/login', {
+                email,
+                password: senha,
+            });
+
+            // Guarda o resultado na sessionStorage conforme formato esperado
+            // (armazenamos message e o objeto user retornado)
+            if (typeof window !== 'undefined') {
+                const payload = {
+                    message: response.data?.message,
+                    user: response.data?.user,
+                };
+                sessionStorage.setItem('user', JSON.stringify(payload));
+
+                // Atualiza o estado do tipo de usuário com o role vindo do backend
+                // (fonte de verdade para permissões e redirecionamentos)
+                if (response.data?.user?.role) {
+                    setTipoUsuario(response.data.user.role);
+                }
+            }
+
+            // Redireciona para a sobre usando replace
+            router.replace('/sobre');
+        } catch (err) {
+            console.error('Erro no login:', err);
+            alert(err?.response?.data?.message || 'Erro ao efetuar login');
         }
-        
-        router.push('/home');
     };
+
+    
 
     const handleCadastro = (e) => {
         e.preventDefault();
@@ -54,23 +85,6 @@ export default function Login() {
         setReceberNotificacoes(false);
     };
 
-    const formatCPF = (value) => {
-        const cleaned = value.replace(/\D/g, '');
-        const match = cleaned.match(/^(\d{3})(\d{3})(\d{3})(\d{2})$/);
-        if (match) {
-            return `${match[1]}.${match[2]}.${match[3]}-${match[4]}`;
-        }
-        return cleaned.substring(0, 11);
-    };
-
-    const formatTelefone = (value) => {
-        const cleaned = value.replace(/\D/g, '');
-        const match = cleaned.match(/^(\d{2})(\d{5})(\d{4})$/);
-        if (match) {
-            return `(${match[1]}) ${match[2]}-${match[3]}`;
-        }
-        return cleaned.substring(0, 11);
-    };
 
     return (
         <div className={styles.main}>
@@ -166,23 +180,6 @@ export default function Login() {
                                         </span>
                                     </div>
                                 </div>
-
-                                <div className={styles.inputWrapper}>
-                                    <label className={styles.inputLabel}>Tipo de Usuário</label>
-                                    <div className={styles.selectWithIcon}>
-                                        <select
-                                            className={styles.select}
-                                            value={tipoUsuario}
-                                            onChange={(e) => setTipoUsuario(e.target.value)}
-                                            required
-                                        >
-                                            <option value="Paciente">Paciente</option>
-                                            <option value="Médico">Médico</option>
-                                            <option value="Administrador">Administrador</option>
-                                        </select>
-                                    </div>
-                                </div>
-
                                 <button type="submit" className={styles.submitButton}>
                                     Entrar
                                 </button>
