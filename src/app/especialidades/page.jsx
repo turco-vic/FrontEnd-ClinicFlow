@@ -1,6 +1,7 @@
 "use client"
 
 import { Modal, Spin } from "antd"
+import Link from "next/link"
 import styles from './especialidades.module.css'
 import EspecialidadesCard from "@/components/EspecialidadesCard"
 import { useState, useEffect } from "react"
@@ -37,7 +38,9 @@ export default function Especialidades() {
             ) : (
                 especialidades && especialidades.length > 0 ? (
                     especialidades.map((esp) => (
-                        <EspecialidadesCard key={esp.id } especialty={esp.especialty} />
+                        <Link key={esp.id} href={`/especialidades/${esp.id}`}>
+                            <EspecialidadesCard key={esp.id } especialty={esp.especialty} />
+                        </Link>
                     ))
                 ) : (
                     <p>Nenhuma especialidade encontrada</p>
