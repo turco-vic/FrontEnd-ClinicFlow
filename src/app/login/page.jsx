@@ -21,24 +21,10 @@ export default function Login() {
     const [receberNotificacoes, setReceberNotificacoes] = useState(false);
     
     const router = useRouter();
-
-
-    // Hook de credenciais em formato de array conforme solicitado
-    const [credentials, setCredentials] = useState([]);
-    // Controle de tela: Login ou Cadastro
     const [isLogin, setIsLogin] = useState(true);
-    // Tipo de usuário selecionado
 
-    // Formatações simples para evitar erros (podem ser melhoradas)
-    const formatTelefone = (v) => v;
-    const formatCPF = (v) => v;
-
-    // Handler do submit do formulário de login
     const handleSubmit = async (e) => {
         e.preventDefault();
-
-        // Salva email e senha em um hook useState (array)
-        setCredentials([email, senha]);
 
         try {
             const response = await axios.post('http://localhost:4000/api/usuarios/login', {
@@ -46,28 +32,18 @@ export default function Login() {
                 password: senha,
             });
 
-            // Guarda o resultado na sessionStorage conforme formato esperado
-            // (armazenamos message e o objeto user retornado)
             if (typeof window !== 'undefined') {
                 const payload = {
                     message: response.data?.message,
                     user: response.data?.user,
                 };
                 sessionStorage.setItem('user', JSON.stringify(payload));
-
-                // Atualiza o estado do tipo de usuário com o role vindo do backend
-                // (fonte de verdade para permissões e redirecionamentos)
-                if (response.data?.user?.role) {
-                    setTipoUsuario(response.data.user.role);
-                }
             }
 
-            // Redireciona para a sobre usando replace
             router.replace('/sobre');
         } catch (err) {
             console.error('Erro no login:', err);
             alert(err?.response?.data?.message || 'Erro ao efetuar login');
-
         }
     };
 
@@ -252,7 +228,7 @@ export default function Login() {
                                                 type="tel"
                                                 className={styles.input}
                                                 value={telefone}
-                                                onChange={(e) => setTelefone(formatTelefone(e.target.value))}
+                                                onChange={(e) => setTelefone(e.target.value)}
                                                 placeholder="(00) 00000-0000"
                                                 maxLength={15}
                                                 required
@@ -269,7 +245,7 @@ export default function Login() {
                                                 type="text"
                                                 className={styles.input}
                                                 value={cpf}
-                                                onChange={(e) => setCpf(formatCPF(e.target.value))}
+                                                onChange={(e) => setCpf(e.target.value)}
                                                 placeholder="000.000.000-00"
                                                 maxLength={14}
                                                 required
