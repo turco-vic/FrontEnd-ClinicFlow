@@ -16,7 +16,7 @@ export default function Pacientes() {
     const router = useRouter();
 
     useEffect(() => {
-        // Verificar se o usuário está logado e é médico
+        
         const userStorage = localStorage.getItem('user');
         if (!userStorage) {
             router.push('/login');
