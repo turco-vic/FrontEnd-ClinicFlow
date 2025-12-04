@@ -22,8 +22,8 @@
 }
 
 .button{
-    width: 30%;
-    height: 100%;
+    width: 4rem;
+    height: 2rem;
     background-color: #2CA5A6;
     color: white;
     border-radius: 10px;
@@ -50,15 +50,17 @@
     font-size: 8px; 
     text-align: center;
     transition: 1s;
-    color: black;
+    color: rgb(111, 111, 111);
+    background-color: white;
 }
 
 .especialidades:hover{
     transform: scale(1.1);
-    box-shadow: 0.25px 1.5px 1.5px rgb(71, 67, 67) ;
+    box-shadow: 1px 2px 2px rgba(71, 67, 67, 0.438) ;
     color: #2CA5A6;
 }
 
 .img{
-    border-radius: 10px;
+    object-fit: cover;
+    border-radius: 50%;
 }
