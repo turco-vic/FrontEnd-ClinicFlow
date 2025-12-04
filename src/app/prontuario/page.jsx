@@ -47,19 +47,18 @@ export default function Prontuario() {
         { label: "Freq. Cardíaca", valor: freqCardiaca, setValue: setFreqCardiaca, unidade: "BPM" }
     ];
 
-    // Verificar acesso na montagem do componente
     useEffect(() => {
         const userStorage = localStorage.getItem('user');
         
         if (!userStorage) {
-            // Se não estiver logado, redireciona para login
+       
             router.push('/login');
             return;
         }
 
         const userData = JSON.parse(userStorage);
         
-        // Apenas médicos podem acessar o prontuário
+       
         if (userData.role !== 'MEDICO') {
             setAcessoNegado(true);
             setTimeout(() => {
@@ -68,7 +67,7 @@ export default function Prontuario() {
         }
     }, [router]);
 
-    // Se acesso negado, mostrar mensagem
+ 
     if (acessoNegado) {
         return (
             <div className={styles.container}>
@@ -113,7 +112,7 @@ export default function Prontuario() {
 
             <main className={styles.main}>
                 <div className={styles.layout}>
-                    {/* Sidebar */}
+                
                     <aside className={styles.sidebar}>
                         <div className={styles.logo}>
                             <div className={styles.logoIcon}>
@@ -156,9 +155,9 @@ export default function Prontuario() {
                         </nav>
                     </aside>
 
-                    {/* Conteúdo Principal */}
+                 
                     <div className={styles.content}>
-                        {/* Card do Paciente */}
+                      
                         <div className={styles.pacienteCard}>
                             <input 
                                 type="text"
@@ -243,7 +242,7 @@ export default function Prontuario() {
                             </div>
                         </div>
 
-                        {/* Menu de Abas */}
+                       
                         <div className={styles.tabMenu}>
                             <button 
                                 className={activeTab === 'atendimento' ? styles.tabActive : styles.tab}
@@ -283,7 +282,7 @@ export default function Prontuario() {
                             </button>
                         </div>
 
-                        {/* Seção de Atendimento */}
+                      
                         {activeTab === 'atendimento' && (
                             <>
                                 <div className={styles.resumoSection}>
@@ -345,7 +344,7 @@ export default function Prontuario() {
                                     </div>
                                 </div>
 
-                                {/* Seção Inferior - Exames e Medidas */}
+                               
                                 <div className={styles.bottomSection}>
                                     <div className={styles.examesCard}>
                                         <h4 className={styles.cardTitle}>Exames</h4>
@@ -403,7 +402,7 @@ export default function Prontuario() {
                             </>
                         )}
 
-                        {/* Outras abas podem ser adicionadas aqui */}
+                       
                         {activeTab === 'editar' && (
                             <div className={styles.tabContent}>
                                 <p>Conteúdo da aba Editar</p>
