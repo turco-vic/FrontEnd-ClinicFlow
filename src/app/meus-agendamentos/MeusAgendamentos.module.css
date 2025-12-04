@@ -195,3 +195,24 @@
     font-weight: 600;
     color: #000;
 }
+
+.actionsRow {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 12px;
+}
+
+.cancelButton {
+    background: #ff6b6b;
+    color: #fff;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.cancelButton:disabled {
+    background: #f5a9a9;
+    cursor: not-allowed;
+}

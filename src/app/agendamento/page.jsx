@@ -78,14 +78,22 @@ export default function Agendamento() {
             const created = await response.json().catch(() => null);
             console.log("Agendamento criado:", created);
 
-            toast.success("Agendamento concluído com sucesso!", {
-                position: "top-right",
-                autoClose: 3000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-            });
+            toast.success(
+                <div>
+                    <strong>Agendamento concluído</strong>
+                    <div style={{ marginTop: 6, fontSize: 13 }}>
+                        Seu agendamento foi realizado com sucesso. Caso queira, você pode ver sua consulta em <a href="/meus-agendamentos" style={{ color: '#2CA5A6', textDecoration: 'none' }}>Minhas Consultas</a>.
+                    </div>
+                </div>,
+                {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                }
+            );
 
             setSelectedDate(null);
             setSelectedTime(null);

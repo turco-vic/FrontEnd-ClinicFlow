@@ -12,9 +12,10 @@ export default function MeusAgendamentos() {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
     const [search, setSearch] = useState("");
+    const [deletingIds, setDeletingIds] = useState([]);
+    const apiBase = process.env.NEXT_PUBLIC_API_URL;
 
     useEffect(() => {
-        const apiBase = process.env.NEXT_PUBLIC_API_URL;
         console.log("Carregando agendamentos de:", `${apiBase}/api/agendamentos`);
 
         const loggedPatientId = 1;
@@ -87,6 +88,31 @@ export default function MeusAgendamentos() {
             })
             .finally(() => setLoading(false));
     }, []);
+
+    async function handleCancel(scheduleId) {
+        const confirm = window.confirm("Tem certeza que deseja cancelar este agendamento?");
+        if (!confirm) return;
+
+        try {
+            setDeletingIds((prev) => [...prev, scheduleId]);
+
+            const res = await fetch(`${apiBase}/api/agendamentos/${scheduleId}`, {
+                method: "DELETE",
+            });
+
+            if (!res.ok) {
+                throw new Error(`Falha ao cancelar (status ${res.status})`);
+            }
+
+           
+            setSchedules((prev) => prev.filter((s) => s.id !== scheduleId));
+        } catch (err) {
+            console.error("Erro ao cancelar agendamento:", err);
+            alert("Não foi possível cancelar o agendamento. Tente novamente.");
+        } finally {
+            setDeletingIds((prev) => prev.filter((id) => id !== scheduleId));
+        }
+    }
 
    
     const filteredSchedules = schedules.filter((schedule) => {
@@ -226,6 +252,16 @@ export default function MeusAgendamentos() {
                                                     <span className={styles.detailLabel}>Local</span>
                                                     <span className={styles.detailValue}>ClinicFlow</span>
                                                 </div>
+                                            </div>
+
+                                            <div className={styles.actionsRow}>
+                                                <button
+                                                    className={styles.cancelButton}
+                                                    onClick={() => handleCancel(schedule.id)}
+                                                    disabled={deletingIds.includes(schedule.id)}
+                                                >
+                                                    {deletingIds.includes(schedule.id) ? "Cancelando..." : "Cancelar"}
+                                                </button>
                                             </div>
                                         </div>
                                     );
