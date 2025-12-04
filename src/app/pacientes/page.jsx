@@ -37,7 +37,7 @@ export default function Pacientes() {
     const carregarPacientes = async () => {
         try {
             setCarregando(true);
-            const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001/api';
+            const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api';
             const response = await fetch(`${apiUrl}/pacientes`, {
                 method: 'GET',
                 headers: {
