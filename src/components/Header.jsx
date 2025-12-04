@@ -2,11 +2,13 @@
 
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import styles from '../styles/Header.module.css';
 
 export default function Header() {
     const [user, setUser] = useState(null);
     const [isLoaded, setIsLoaded] = useState(false);
+    const router = useRouter();
 
     useEffect(() => {
         try {
@@ -20,6 +22,16 @@ export default function Header() {
             setIsLoaded(true);
         }
     }, []);
+
+    const handleLogout = () => {
+        try {
+            sessionStorage.removeItem("user");
+            setUser(null);
+            router.push("/sobre");
+        } catch (error) {
+            console.error("Erro ao fazer logout:", error);
+        }
+    };
 
     console.log("User in Header:", user);
 
@@ -35,7 +47,6 @@ export default function Header() {
                     <Link href="/especialidades" className={styles.navLink}>Especialidades</Link>
                     <Link href="/meus-agendamentos" className={styles.navLink}>Minhas consultas</Link>
                     <Link href="/contato" className={styles.navLink}>Contato</Link>
-                    <Link href="/login" className={styles.navLink}>Login</Link>
                 </nav>
             </div>
         );
@@ -47,23 +58,33 @@ export default function Header() {
                 <span className={styles.tagline}>Gestão Inteligente de Consultas</span>
             </div>
 
-            {user?.user?.role === "PACIENTE" 
-            ?
-            <nav className={styles.nav}>
-                <Link href="/sobre" className={styles.navLink}>Sobre</Link>
-                <Link href="/especialidades" className={styles.navLink}>Especialidades</Link>
-                <Link href="/meus-agendamentos" className={styles.navLink}>Minhas consultas</Link>
-                <Link href="/contato" className={styles.navLink}>Contato</Link>
-                <Link href="/login" className={styles.navLink}>Login</Link>
-            </nav> 
-            :
-            <nav className={styles.nav}>
-                <Link href="/sobre" className={styles.navLink}>Sobre</Link>
-                <Link href="/prontuario" className={styles.navLink}>Prontuário</Link>
-                <Link href="/contato" className={styles.navLink}>Contato</Link>
-                <Link href="/login" className={styles.navLink}>Login</Link>
-            </nav>
-        }
+            {user ? (
+                // Usuário logado
+                user.user?.role === "PACIENTE" ? (
+                    <nav className={styles.nav}>
+                        <Link href="/sobre" className={styles.navLink}>Sobre</Link>
+                        <Link href="/especialidades" className={styles.navLink}>Especialidades</Link>
+                        <Link href="/meus-agendamentos" className={styles.navLink}>Minhas consultas</Link>
+                        <Link href="/contato" className={styles.navLink}>Contato</Link>
+                        <button onClick={handleLogout} className={styles.logoutButton}>Logout</button>
+                    </nav>
+                ) : (
+                    <nav className={styles.nav}>
+                        <Link href="/sobre" className={styles.navLink}>Sobre</Link>
+                        <Link href="/prontuario" className={styles.navLink}>Prontuário</Link>
+                        <Link href="/contato" className={styles.navLink}>Contato</Link>
+                        <button onClick={handleLogout} className={styles.logoutButton}>Logout</button>
+                    </nav>
+                )
+            ) : (
+                // Usuário não logado
+                <nav className={styles.nav}>
+                    <Link href="/sobre" className={styles.navLink}>Sobre</Link>
+                    <Link href="/especialidades" className={styles.navLink}>Especialidades</Link>
+                    <Link href="/contato" className={styles.navLink}>Contato</Link>
+                    <Link href="/login" className={styles.navLink}>Login</Link>
+                </nav>
+            )}
         </div>
     );
 }

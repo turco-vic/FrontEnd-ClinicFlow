@@ -210,4 +210,5 @@ export default function Pacientes() {
             <Footer />
         </>
     );
-}
+} 
+

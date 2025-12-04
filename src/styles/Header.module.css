@@ -45,6 +45,22 @@
     align-items: center;
 }
 
+.logoutButton {
+    background: #ef4444;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: all 0.3s;
+}
+
+.logoutButton:hover {
+    background: #dc2626;
+    transform: translateY(-1px);
+}
+
 @media (max-width: 768px) {
     .header {
         flex-direction: column;
