@@ -96,7 +96,7 @@ export default function EspecialidadePage() {
                         src={
                           doc.doctor_photo
                             ? `${doc.doctor_photo}`
-                            : "/images/400x400.svg"
+                            : "/images/usuario.png"
                         }
                         alt={doc.name || "Foto do médico"}
                         width={100}
