@@ -46,7 +46,6 @@ export default function Prontuario() {
         { label: "Freq. Cardíaca", valor: freqCardiaca, setValue: setFreqCardiaca, unidade: "BPM" }
     ];
 
-    // Verificar acesso na montagem do componente
     useEffect(() => {
         try {
             const userStorage = sessionStorage.getItem('user');
@@ -77,13 +76,52 @@ export default function Prontuario() {
         }
     }, [router]);
 
+ 
+    if (acessoNegado) {
+        return (
+            <div className={styles.container}>
+                <Header />
+                <div style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    minHeight: '60vh',
+                    textAlign: 'center',
+                    padding: '20px'
+                }}>
+                    <div style={{
+                        fontSize: '48px',
+                        marginBottom: '20px'
+                    }}>🚫</div>
+                    <h1 style={{
+                        fontSize: '24px',
+                        fontWeight: 'bold',
+                        color: '#333',
+                        marginBottom: '10px'
+                    }}>Acesso Restrito</h1>
+                    <p style={{
+                        fontSize: '16px',
+                        color: '#666',
+                        marginBottom: '20px'
+                    }}>Apenas médicos podem acessar o prontuário.</p>
+                    <p style={{
+                        fontSize: '14px',
+                        color: '#999'
+                    }}>Você será redirecionado em alguns segundos...</p>
+                </div>
+                <Footer />
+            </div>
+        );
+    }
+
     return (
         <div className={styles.container}>
             <Header />
 
             <main className={styles.main}>
                 <div className={styles.layout}>
-                    {/* Sidebar */}
+                
                     <aside className={styles.sidebar}>
                         <div className={styles.logo}>
                             <div className={styles.logoIcon}>
@@ -126,9 +164,9 @@ export default function Prontuario() {
                         </nav>
                     </aside>
 
-                    {/* Conteúdo Principal */}
+                 
                     <div className={styles.content}>
-                        {/* Card do Paciente */}
+                      
                         <div className={styles.pacienteCard}>
                             <input 
                                 type="text"
@@ -213,7 +251,7 @@ export default function Prontuario() {
                             </div>
                         </div>
 
-                        {/* Menu de Abas */}
+                       
                         <div className={styles.tabMenu}>
                             <button 
                                 className={activeTab === 'atendimento' ? styles.tabActive : styles.tab}
@@ -253,7 +291,7 @@ export default function Prontuario() {
                             </button>
                         </div>
 
-                        {/* Seção de Atendimento */}
+                      
                         {activeTab === 'atendimento' && (
                             <>
                                 <div className={styles.resumoSection}>
@@ -315,7 +353,7 @@ export default function Prontuario() {
                                     </div>
                                 </div>
 
-                                {/* Seção Inferior - Exames e Medidas */}
+                               
                                 <div className={styles.bottomSection}>
                                     <div className={styles.examesCard}>
                                         <h4 className={styles.cardTitle}>Exames</h4>
@@ -373,7 +411,7 @@ export default function Prontuario() {
                             </>
                         )}
 
-                        {/* Outras abas podem ser adicionadas aqui */}
+                       
                         {activeTab === 'editar' && (
                             <div className={styles.tabContent}>
                                 <p>Conteúdo da aba Editar</p>
